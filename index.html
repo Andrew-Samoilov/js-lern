@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document 4 learnig JS</title>
+</head>
+<body>
+    <h1>Java Script learning page</h1>
+
+      
+    <script> <!-- //https://html5book.ru/osnovy-javascript/--> 
+    var colorArray = ["#5A9C6E", "#A8BF5A", "#FAC46E", "#FAD5BB", "#F2FEFF"]; // создаем массив с цветами фона
+    var i = 0; 
+
+    function changeColor(){
+        document.body.style.background = colorArray[i]; 
+        i++;
+        if( i > colorArray.length - 1){
+            i = 0;
+        }
+    }
+    </script>
+        
+    <button onclick="changeColor();">Change background</button>
+
+    <hr>
+    <br>
+   
+    <script>
+        document.write("куку");
+    </script>
+</body>
+</html>

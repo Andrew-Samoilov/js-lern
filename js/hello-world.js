@@ -17,7 +17,7 @@ let names = 'Джон';
 admin = names;
 
 const OUR_PLANET = "Earth";
+alert(`our planet ${OUR_PLANET}`)
 
-// var min = 98;
-// document.getElementById("min").innerHTML = min;
-// ENd
+let user_name = prompt("Введіть імя", 999)
+alert(`Привіт ${user_name}!`)

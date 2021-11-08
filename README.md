@@ -2,4 +2,4 @@
 
 4 my learning JS Для тренування по Java Script
 
-Роблю по підручнику: https://learn.javascript.ru/types
+Роблю по підручнику: https://learn.javascript.ru/comparison

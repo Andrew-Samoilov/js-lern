@@ -21,3 +21,13 @@ alert(`our planet ${OUR_PLANET}`)
 
 let user_name = prompt("Введіть імя", 999)
 alert(`Привіт ${user_name}!`)
+
+// Change code below this line
+const pricePerDroid = 800;
+const orderedQuantity = 6;
+const deliveryFee = 50;
+const totalPrice = pricePerDroid * orderedQuantity + deliveryFee;
+const message = `You ordered droids worth ${totalPrice} credits. Delivery (${deliveryFee} credits) is included in total price.`
+alert(`Привіт ${message}!`);
+
+const message = `You ordered droids worth ${totalPrice} credits. Delivery (${deliveryFee} credits) is included in total price.`;

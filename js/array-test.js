@@ -29,3 +29,16 @@ for (const client of clients) {
 console.log(message); // "Клієнт з таким ім'ям є в базі даних!"
 
 console.table(clients);
+
+const cart = [12, 15, 52, 98, 65, 255, 5];
+console.table(cart);
+let cartSum = 0;
+
+for (let i = 0; i < cart.length; i++) {
+    cartSum+=cart[i];   
+}
+
+console.log(`Загальна сума елементів ${cartSum}`);
+
+
+

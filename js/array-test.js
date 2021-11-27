@@ -1,4 +1,68 @@
 console.log(" - Array test - ");
+console.log();
+console.log();
+console.log();
+
+function includes(array, value) {
+    // Change code below this line
+    let result = false;
+    for (let i = 0; i <= array.length; i++) {
+        if (array[i] === value) {
+            result = true;
+        }
+
+    }
+    return result;
+    // Change code above this line
+}
+console.log(includes(["Earth", "Mars", "Venus", "Jupiter", "Saturn"], "Uranus"));
+console.log(includes(["apple", "plum", "pear", "orange"], "plum"));
+console.log(includes([1, 2, 3, 4, 5], 7));
+console.log();
+
+// function getCommonElements(array1, array2) {
+//     // Change code below this line
+//     const result = [];
+//     // console.table(array1);
+//     // console.table(array2);
+//     for (let i = 0; i < array1.length; i++) {
+//         // console.log(array1[i]);
+//         if (array2.includes(array1[i])) { result.push(array1[i]); }
+
+//         // for (let j = 0; j < array2.length; j++) {
+//         //     // console.log('-', array2[j]);
+//         //     // if (array1[i] === array2[j]) {
+//         //     //     result.push(array2[j])
+//         //     //     console.log('i - ', array1[i], ' j - ', array2[j]);
+//         //     // }
+//         // }
+
+//     }
+//     return result;
+//     // Change code above this line
+// }
+
+// console.log(getCommonElements([1, 2, 3], [2, 4]));
+// console.log(getCommonElements([1, 2, 3], [2, 1, 17, 19]));
+// console.log(getCommonElements([24, 12, 27, 3], [12, 8, 3, 36, 27]));
+// console.log(getCommonElements([10, 20, 30, 40], [4, 30, 17, 10, 40]));
+
+
+
+// function filterArray(numbers, value) {
+//     // Change code below this line
+//     const result = [];
+//     for (let i = 0; i < numbers.length; i++) {
+//         const element = numbers[i];
+//         if (element > value) { result.push(element) }
+//     }
+
+
+//     return result;
+//     // Change code above this line
+// }
+
+
 
 // const clients = ["Mango", "Ajax", "Poly"];
 
@@ -132,37 +196,51 @@ console.log(" - Array test - ");
 // console.log(calculateTotalPrice([164, 48, 291]));
 // console.log(calculateTotalPrice([412, 371, 94, 63, 176]));
 
-function findLongestWord(string) {
-    // Change code below this line
-    console.log(" findLongestWord ");
-    if (!string) {
-        return 0;
-    }
+// function findLongestWord(string) {
+//     // Change code below this line
+//     // console.log(" findLongestWord ");
+//     if (!string) {
+//         return 0;
+//     }
 
-    const stringArray = string.split(" ");
-    console.table(stringArray);
-    let maxLength = 0;
-    let result = '';
+//     const stringArray = string.split(" ");
+//     // console.table(stringArray);
+//     let maxLength = 0;
+//     let result = '';
 
-    for (let i = 0; i < stringArray.length; i++) {
+//     for (let i = 0; i < stringArray.length; i++) {
 
-        if (maxLength < stringArray[i].length) {
-            maxLength = stringArray[i].length;
-            result = stringArray[i];
-            console.log('- in if- ', maxLength, ' word ', result);
-        }
+//         if (maxLength < stringArray[i].length) {
+//             maxLength = stringArray[i].length;
+//             result = stringArray[i];
+//             // console.log('- in if- ', maxLength, ' word ', result);
+//         }
+//     }
+//     return result;
+//     // Change code above this line
+// }
 
-    }
-
-    return result;
-
-    // Change code above this line
-}
-
-console.log(findLongestWord("The quick brown fox jumped over the lazy dog"));
-console.log(findLongestWord("Google do a roll"));
-console.log(findLongestWord("May the force be with you "));
-console.log(findLongestWord());
+// console.log(findLongestWord("The quick brown fox jumped over the lazy dog"));
+// console.log(findLongestWord("Google do a roll"));
+// console.log(findLongestWord("May the force be with you "));
+// console.log(findLongestWord());
 
 
-console.log();
+// function createArrayOfNumbers(min, max) {
+//     console.log(' createArrayOfNumbers ');
+//     if (max < min) { return 0; }
+
+//     const numbers = [];
+//     // Change code below this line
+
+//     for (let i = min; i <= max; i++) {
+//         numbers.push(i);
+//         console.log(i)
+//     }
+//     // Change code above this line
+//     return numbers;
+// }
+
+// console.log(createArrayOfNumbers(1, 3));
+// console.log(createArrayOfNumbers(29, 34));
+// console.log(createArrayOfNumbers());

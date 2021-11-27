@@ -108,3 +108,10 @@ function calculateTotal(number) {
 console.log('-calculateTotal- ', calculateTotal(30));
 
 console.log('-calculateTotal- ', calculateTotal(Math.random()));
+
+const fruits = ['apple', 'plum', 'pear', 'orange'];
+
+for (let i = i , i < planets.length, i++) { // Change this line
+  const fruit = fruits[]; // Change this line
+  console.log(fruit[i]);
+}

@@ -3,22 +3,25 @@ console.log();
 console.log();
 console.log();
 
-function includes(array, value) {
-    // Change code below this line
-    let result = false;
-    for (let i = 0; i <= array.length; i++) {
-        if (array[i] === value) {
-            result = true;
-        }
 
-    }
-    return result;
-    // Change code above this line
-}
-console.log(includes(["Earth", "Mars", "Venus", "Jupiter", "Saturn"], "Uranus"));
-console.log(includes(["apple", "plum", "pear", "orange"], "plum"));
-console.log(includes([1, 2, 3, 4, 5], 7));
-console.log();
+
+
+// function includes(array, value) {
+//     // Change code below this line
+//     let result = false;
+//     for (let i = 0; i <= array.length; i++) {
+//         if (array[i] === value) {
+//             result = true;
+//         }
+
+//     }
+//     return result;
+//     // Change code above this line
+// }
+// console.log(includes(["Earth", "Mars", "Venus", "Jupiter", "Saturn"], "Uranus"));
+// console.log(includes(["apple", "plum", "pear", "orange"], "plum"));
+// console.log(includes([1, 2, 3, 4, 5], 7));
+
 
 // function getCommonElements(array1, array2) {
 //     // Change code below this line

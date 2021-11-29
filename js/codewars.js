@@ -3,40 +3,55 @@ console.log();
 console.log();
 console.log();
 
-function descendingOrder(n){
-  //... Сум, в такому виконанні алгоритим не працює при кількох однакових числах на вході 
+function descendingOrder(n) {
+    //... Сум, в такому виконанні алгоритим не працює при кількох однакових числах на вході 
     console.log("Number ", n);
     const result = 'z' + n;
-    
+
+
     // const resultArray = Array.from(result);
     const resultArray = result.split("");
     console.log(" Вхідний resultArray ", resultArray);
+
     let maxDigit = 0;
 
-    for (let i = 1; i < resultArray.length; i++) {
-        const element = Number( resultArray[i]);
-        // console.log(element);
-        if (element > maxDigit) {
-            maxDigit = element;
-            // console.log(`Element ${element} більше`);
-            resultArray.splice(1, 0, element);
-            resultArray.splice(i+1, 1);
-            // console.log(" resultArray = ", resultArray);
-        }
-    }
+    // for (let i = 1; i < resultArray.length; i++) {
+    //     const element = Number(resultArray[i]);
+    //     // console.log(element);
+    //     if (element > maxDigit) {
+    //         maxDigit = element;
+    //         // console.log(`Element ${element} більше`);
+    //         resultArray.splice(1, 0, element);
+    //         resultArray.splice(i + 1, 1);
+    //         // console.log(" resultArray = ", resultArray);
+    //     }
+    // }
+
+    // let i = 0;
+    // do {
+    //     if (resultArray[i + 1] > resultArray[i]) {
+    //         const element = resultArray[i + 1];
+    //         resultArray[i + 1] = resultArray[i];
+    //         resultArray[i] = element;
+    //         console.log(' inside ');
+    //     }
+
+    //     i++;
+    // } while (resultArray[resultArray.length - 1] < resultArray[resultArray.length - 2]);
+
     resultArray.splice(0, 1);
 
     // console.log("result array = ", resultArray.join(''));
-    
+
     return Number(resultArray.join(''));
 }
 
-console.log(descendingOrder(1));
+// console.log(descendingOrder(1));
 console.log(descendingOrder(42145));
 console.log(descendingOrder(145263));
 console.log(descendingOrder(1234562789));
 console.log(descendingOrder(1021));
-console.log(descendingOrder(15));
+// console.log(descendingOrder(15));
 
 
 

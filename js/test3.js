@@ -24,3 +24,11 @@ function checkForSpam(message) {
 
 console.log(checkForSpam("adsfrwerwrwer"));
 console.log(checkForSpam("adsf spam rwerwrwer"));
+
+
+function boolToStr(b = false) {
+    return b ? "Yes" : "No";
+}
+
+console.log(boolToStr(false));
+console.log(boolToStr(true));

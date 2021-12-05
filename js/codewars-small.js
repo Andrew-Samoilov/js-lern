@@ -26,3 +26,15 @@ function positiveSum(arr) {
 }
 
 console.log(positiveSum([1, -4, 7, 12]));
+
+
+const arr = ["BEST", "the", "foo", "is", "JS"];
+// console.log(...arr);
+for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === "foo") {
+        arr.splice(i, 1);
+        // console.log('--', arr[i]);
+    }
+}
+
+console.log(arr.join(" "));

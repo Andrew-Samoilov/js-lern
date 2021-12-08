@@ -29,20 +29,3 @@ for (let i = min; i < max; i++) {
 }
 
 console.log('Sum ', total);
-
-function sumTwoSmallestNumbers(numbers) {
-    let minN2 = numbers[1];
-    let minN1 = numbers[0];
-
-    for (let number of numbers) {
-        minN1 > number ? (minN1 = number) : false;
-    }
-
-    for (let number of numbers) {
-        number != minN1 && minN2 > number ? (minN2 = number) : false;
-    }
-
-    return minN1 + minN2;
-}
-
-console.log(sumTwoSmallestNumbers([19, 5, 42, 2, 77]));

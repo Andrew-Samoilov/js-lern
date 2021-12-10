@@ -3,6 +3,20 @@ console.log();
 console.log();
 
 {
+    function repeatStr(n, s) {
+        let result = '';
+        console.log(`n=${n}  s=${s}`)
+        for (let i = 0; i < n; i++) {
+            result += s;
+        }
+        return result;
+    }
+    console.log(repeatStr(6, "I"));
+    console.log(repeatStr(5, "Hello"));
+}
+console.log('---==*==---');
+// ----------
+{
     function calculateTotalPrice(orderedItems) {
         let totalPrice = 0;
         // Change code below this line

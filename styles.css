@@ -1,8 +1,6 @@
 .li-bottom {
 }
 .nav-lang {
- /* position: fixed;
- right: 1em; */
  text-align: right;
  margin-bottom: 1em;
 }
@@ -10,4 +8,8 @@
  font-size: 1em;
  margin-right: 1.25em;
  text-decoration: none;
+}
+.li-mobile-menu {
+ text-decoration: none;
+ background-image: none;
 }

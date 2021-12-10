@@ -2,87 +2,109 @@ console.log(" - * GoIt Hw 4 * - ");
 console.log();
 console.log();
 
+{
+    function calculateTotalPrice(orderedItems) {
+        let totalPrice = 0;
+        // Change code below this line
 
-console.log('---==*==---');
-// ----------
-const pizzaPalace = {
-    pizzas: ['Ultracheese', 'Smoked', 'Four meats'],
-    order(pizzaName, onSuccess, onOrderError) {
-        // console.log(this.pizzas.indexOf(pizzaName));
-        if (this.pizzas.indexOf(pizzaName) === -1) {
-            return onOrderError(`There is no pizza with a name ${pizzaName} in the assortment.`)
-        }
-        return makePizza(pizzaName);
-    },
-};
-// Change code above this line
+        // for (let i = 0; i < orderedItems.length; i += 1) {
+        //     totalPrice += orderedItems[i];
+        // }
 
-// Callback for onSuccess
-function makePizza(pizzaName) {
-    return `Your order is accepted. Cooking pizza ${pizzaName}.`;
+        orderedItems.forEach(function (number, index) {
+            totalPrice += number;
+
+        });
+        // Change code above this line
+        return totalPrice;
+    }
+
+    console.log(calculateTotalPrice([12, 85, 37, 4]));
 }
-
-// Callback for onError
-function onOrderError(error) {
-    return `Error! ${error}`;
-}
-
-// Method calls with callbacks
-console.log(pizzaPalace.order('Smoked', makePizza, onOrderError));
-console.log(pizzaPalace.order('Four meats', makePizza, onOrderError));
-console.log(pizzaPalace.order('Big Mike', makePizza, onOrderError));
-console.log(pizzaPalace.order('Vienna', makePizza, onOrderError));
-
 
 
 console.log('---==*==---');
 // ----------
 {
-    function makePizza(pizzaName, callback) {
-        console.log(`Pizza ${pizzaName} is being prepared, please wait...`);
-        callback(pizzaName);
-    }
+    const pizzaPalace = {
+        pizzas: ['Ultracheese', 'Smoked', 'Four meats'],
+        order(pizzaName, onSuccess, onOrderError) {
+            // console.log(this.pizzas.indexOf(pizzaName));
+            if (this.pizzas.indexOf(pizzaName) === -1) {
+                return onOrderError(`There is no pizza with a name ${pizzaName} in the assortment.`)
+            }
+            return makePizza(pizzaName);
+        },
+    };
+    // Change code above this line
 
-    makePizza("Royal Grand", function deliverPizza(pizzaName) {
-        console.log(`Delivering pizza ${pizzaName}.`);
-    });
-    // Change code below this line
-
-    makePizza("Ultracheese", function eatPizza(pizzaName) {
-        console.log(`Eating pizza ${pizzaName}`)
-    });
-}
-console.log('---==*==---');
-// ----------
-{
-    function deliverPizza(pizzaName) {
-        return `Delivering ${pizzaName} pizza.`;
-    }
-
+    // Callback for onSuccess
     function makePizza(pizzaName) {
-        return `Pizza ${pizzaName} is being prepared, please wait...`;
+        return `Your order is accepted. Cooking pizza ${pizzaName}.`;
     }
 
-    // Chande code below this line
-    function makeMessage(pizzaName, callback) {
-        return callback(pizzaName);
+    // Callback for onError
+    function onOrderError(error) {
+        return `Error! ${error}`;
     }
 
-    console.log(makeMessage('Royal Grand', makePizza));
-    console.log(makeMessage('Ultracheese', deliverPizza));
+    // Method calls with callbacks
+    console.log(pizzaPalace.order('Smoked', makePizza, onOrderError));
+    console.log(pizzaPalace.order('Four meats', makePizza, onOrderError));
+    console.log(pizzaPalace.order('Big Mike', makePizza, onOrderError));
+    console.log(pizzaPalace.order('Vienna', makePizza, onOrderError));
+
+
+
     console.log('---==*==---');
     // ----------
+    {
+        function makePizza(pizzaName, callback) {
+            console.log(`Pizza ${pizzaName} is being prepared, please wait...`);
+            callback(pizzaName);
+        }
 
+        makePizza("Royal Grand", function deliverPizza(pizzaName) {
+            console.log(`Delivering pizza ${pizzaName}.`);
+        });
+        // Change code below this line
 
-    function greet(name) {
-        console.log(`Добро пожаловать ${name}.`);
+        makePizza("Ultracheese", function eatPizza(pizzaName) {
+            console.log(`Eating pizza ${pizzaName}`)
+        });
     }
+    console.log('---==*==---');
+    // ----------
+    {
+        function deliverPizza(pizzaName) {
+            return `Delivering ${pizzaName} pizza.`;
+        }
 
-    // Функция высшего порядка
-    function registerGuest(name, callback) {
-        console.log(`Регистрируем гостя ${name}.`);
-        callback(name);
+        function makePizza(pizzaName) {
+            return `Pizza ${pizzaName} is being prepared, please wait...`;
+        }
+
+        // Chande code below this line
+        function makeMessage(pizzaName, callback) {
+            return callback(pizzaName);
+        }
+
+        console.log(makeMessage('Royal Grand', makePizza));
+        console.log(makeMessage('Ultracheese', deliverPizza));
+        console.log('---==*==---');
+        // ----------
+
+
+        function greet(name) {
+            console.log(`Добро пожаловать ${name}.`);
+        }
+
+        // Функция высшего порядка
+        function registerGuest(name, callback) {
+            console.log(`Регистрируем гостя ${name}.`);
+            callback(name);
+        }
+
+        registerGuest("Mango", greet);
     }
-
-    registerGuest("Mango", greet);
 }

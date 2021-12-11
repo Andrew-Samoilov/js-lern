@@ -2,6 +2,34 @@ console.log(" - * GoIt Hw 4 * - ");
 console.log();
 console.log();
 
+
+
+{
+    function filterArray(numbers, value) {
+        // console.log('Input', ...numbers, ' v', value);
+        const filteredNumbers = [];
+        // Change code below this line
+
+        numbers.forEach(number => {
+            // console.log('||', number, value);
+            if (number > value) { filteredNumbers.push(number); }
+        })
+
+        // for (let i = 0; i < numbers.length; i += 1) {
+        //     if (numbers[i] > value) { filteredNumbers.push(numbers[i]); }
+        // }
+
+        // Change code above this line
+        return filteredNumbers;
+    }
+    console.log('R', filterArray([1, 2, 3, 4, 5], 3));
+    console.log('R', filterArray([12, 24, 8, 41, 76], 38));
+    console.log();
+}
+
+console.log('---==*==---');
+// ----------
+
 {
     function repeatStr(n, s) {
         let result = '';

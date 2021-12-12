@@ -69,8 +69,8 @@ function humanReadable(seconds) {
 
 // console.log('00:00: 00|', humanReadable(0));
 // console.log('00:00:59|', humanReadable(59));
-// console.log('00:01:00|', humanReadable(90));
-// console.log('00:59:59|', humanReadable(3599));
+console.log('00:01:00|', humanReadable(60));
+console.log('00:59:59|', humanReadable(3599));
 // console.log('01:00:00|', humanReadable(3600));
 // console.log('12:34:56|', humanReadable(45296));
 // console.log('24:00:00|', humanReadable(86400));

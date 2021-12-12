@@ -1,6 +1,6 @@
 console.log(" - * Code wars. Sum of numbers from 0 to N * - ");
 console.log();
-console.log();
+console.log('--');
 
 
 var SequenceSum = (function () {

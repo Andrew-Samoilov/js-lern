@@ -67,7 +67,7 @@ function humanReadable(seconds) {
 //     // return result;
 // }
 
-console.log('00:00: 00|', humanReadable(0));
+// console.log('00:00: 00|', humanReadable(0));
 // console.log('00:00:59|', humanReadable(59));
 // console.log('00:01:00|', humanReadable(90));
 // console.log('00:59:59|', humanReadable(3599));

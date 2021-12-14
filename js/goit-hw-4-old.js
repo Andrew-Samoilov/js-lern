@@ -1,7 +1,99 @@
 console.log(" - * GoIt Hw 4 * - ");
 console.log();
 console.log();
+{
+    const getUsersWithEyeColor = (users, color) =>
+        users.filter(user => user.eyeColor === color);
 
+    const getUsersWithAge = (users, minAge, maxAge) => users.filter(user => user.age > minAge && user.age < maxAge);
+}
+
+
+{
+    // 4-21
+    const books = [
+        {
+            title: "The Last Kingdom",
+            author: "Bernard Cornwell",
+            rating: 8.38,
+        },
+        {
+            title: "Beside Still Waters",
+            author: "Robert Sheckley",
+            rating: 8.51,
+        },
+        {
+            title: "The Dream of a Ridiculous Man",
+            author: "Fyodor Dostoevsky",
+            rating: 7.75,
+        },
+        { title: "Redder Than Blood", author: "Tanith Lee", rating: 7.94 },
+        { title: "Enemy of God", author: "Bernard Cornwell", rating: 8.67 },
+    ];
+
+    const MIN_RATING = 8;
+    const AUTHOR = "Bernard Cornwell";
+    // Change code below this line
+
+    const topRatedBooks = books.filter(book => book.rating >= MIN_RATING);
+    const booksByAuthor = books.filter(book => book.author === AUTHOR);
+
+}
+
+{
+    const numbers = [17, 24, 82, 61, 36, 18, 47, 52, 73];
+    // Change code below this line
+
+    const evenNumbers = numbers.filter(value => (value % 2) === 0);
+    const oddNumbers = numbers.filter(value => (value % 2) !== 0)
+
+    console.log(evenNumbers);
+    console.log(oddNumbers);
+}
+
+{
+    const planets = ["Earth", "Mars", "Venus", "Jupiter"];
+    // Change code below this line
+    const planetsLengths = planets.map(planet => planet.length);
+
+    console.log(planetsLengths);
+}
+
+{
+    function changeEven(numbers, value) {
+        // Change code below this line
+        const newArray = [];
+        for (let i = 0; i < numbers.length; i += 1) {
+            if (numbers[i] % 2 === 0) {
+                newArray.push(numbers[i] + value);
+            } else {
+                newArray.push(numbers[i]);
+            }
+
+        }
+        return newArray;
+        // Change code above this line
+    }
+
+    console.log(changeEven([17, 24, 68, 31, 42], 100));
+    console.log(changeEven([44, 13, 81, 92, 36, 54], 100), `[144, 13, 81, 192, 136, 154]`);
+}
+
+{
+    // Change code below this line
+    const filterArray = (numbers, value) => {
+        const filteredNumbers = [];
+
+        numbers.forEach(number => {
+            if (number > value) {
+                filteredNumbers.push(number);
+            }
+        });
+
+        // Change code above this line
+        return filteredNumbers;
+    }
+}
 function getCommonElements(firstArray, secondArray) {
     const commonElements = [];
     // Change code below this line

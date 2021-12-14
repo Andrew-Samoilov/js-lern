@@ -75,11 +75,20 @@ const users = [
         age: 39
     }
 ]
+// const getUsersWithEyeColor = (users, color) =>
+//     users.filter(user => user.eyeColor === color);
 
-// Change code below this line
-const getUsersWithFriend = (users, friendName) => users.filter();
+const getUsersWithFriend = (users, friendName) => users.filter(user => user.friends.includes(friendName));
 
 
-console.log(getUsersWithFriend(users, "Briana Decker"));
-console.log(users.friends);
-console.log(friendName.name);
+
+const frName = 'Goldie Gentry';
+for (let i = 0; i < users.length; i++) {
+    console.log(users[i], users[i].friends.includes(frName));
+}
+
+
+
+// console.table(getUsersWithEyeColor(users, "brown"));
+console.log(getUsersWithFriend(users, 'Goldie Gentry'));
+

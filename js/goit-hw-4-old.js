@@ -1,6 +1,36 @@
 console.log(" - * GoIt Hw 4 * - ");
 console.log();
 console.log();
+{
+    // 4-38
+    const getTotalFriendCount = users => users.reduce((total, u) => {
+        return total + u.friends.length;
+    }, 0);
+}
+
+{
+    // 4-36
+    const calculateTotalBalance = users => users.reduce((total, u) => {
+        return total + u.balance;
+    }, 0);
+}
+
+{
+    // 4-35
+    const players = [
+        { name: "Mango", playtime: 1270, gamesPlayed: 4 },
+        { name: "Poly", playtime: 469, gamesPlayed: 2 },
+        { name: "Ajax", playtime: 690, gamesPlayed: 3 },
+        { name: "Kiwi", playtime: 241, gamesPlayed: 1 },
+    ];
+    // Change code below this line
+
+    const totalAveragePlaytimePerGame = players.reduce((tot, player) => {
+        return tot + player.playtime / player.gamesPlayed;
+    }, 0);
+
+    console.log(totalAveragePlaytimePerGame);
+}
 
 
 {

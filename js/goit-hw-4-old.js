@@ -1,6 +1,13 @@
 console.log(" - * GoIt Hw 4 * - ");
 console.log();
 console.log();
+
+{
+    const totalScore = students.reduce((total, student) => {
+        return total + student.score;
+    }, 0);
+}
+
 {
     // 4-38
     const getTotalFriendCount = users => users.reduce((total, u) => {

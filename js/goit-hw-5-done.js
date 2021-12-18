@@ -1,4 +1,8 @@
 {
+
+    
+}
+{
     // 2
     const customer = {
         username: "Mango",

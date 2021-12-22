@@ -13,7 +13,7 @@ function solve(n) {
     let n2 = 0;
 
     let n3 = 0;
-    if (n <= 2) return -1;
+    // if (n <= 2) return -1;
     n2 = n;
     console.log('n2', n2);
 
@@ -32,7 +32,7 @@ function solve(n) {
     return n2 * n2 - n;
 }
 
-console.log(solve(3));
+console.log(solve(1));
 
 // assert.strictEqual(solve(3), 1)
 // assert.strictEqual(solve(4), -1)

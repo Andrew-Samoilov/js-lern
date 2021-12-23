@@ -5,50 +5,41 @@ console.log();
 
 function solve(n) {
     console.log('Inside func', n);
+    let counter = 0;
     function isSquare(num) {
-        if (num > 100) return num + 'too mach';
+        if (num > 1000) return num + 'too mach';
         // console.log(`Math.sqrt(n2) ${Math.sqrt(n2)}, Math.trunc(Math.sqrt(n2)) ${Math.trunc(Math.sqrt(n2))}`);
         return (Math.sqrt(num) === Math.trunc(Math.sqrt(num)));
     };
 
-    let n2 = 0;
+    let n2 = 1;
 
-    n2 = 1;
+    // console.log(`isSquare ${n2} ${isSquare(n2)}`);
+    // console.log(`isSquare ${n} + ${n2} ${isSquare(n + n2)}`);
+    let is2Square = false;
 
-    console.log(`isSquare ${n2} ${isSquare(n2)}`);
-    console.log(`isSquare ${n} + ${n2} ${isSquare(n + n2)}`);
-    while (isSquare(n2) && isSquare(n + n2)) {
-        console.log('Inside do while - n2', n2);
+    do {
+        // console.log('Inside do while - n2', n2);
+        // console.log(`isSquare ${n} + ${n2} ${isSquare(n + n2)}`);
+        if (isSquare(n2)) {
+            // console.log(`_Inside 1 if, isSquare ${n2} ${isSquare(n2)}`);
+            if (isSquare(n + n2)) {
+                console.log(`__! Inside 2 if, isSquare ${n} + ${n2} ${isSquare(n + n2)}, counter = ${counter}`);
+                is2Square = true;
+
+                return n2;
+            };
+        };
         n2++;
-    }
+        counter++;
+    } while (!is2Square);
 
-    // do {
-    //     console.log('Inside do while - n2', n2);
-    //     n2++;
-    // } while (isSquare(n2) && isSquare(n + n2));
-
-    // console.log('Squere n2 =', n2);
-    // console.log(`isSquare ${n} + ${n2}  ${isSquare(n + n2)}`);
-
-    // console.log(`isSquare ${n2} ${isSquare(n2)}`);
-    // console.log('Math.sqrt', Math.sqrt(n2));
-
-
-    // if (Math.sqrt(n2) === Math.trunc(Math.sqrt(n2))) return 0;
-
-    // n2 = Math.sqrt(n2)
-    // console.log('Math.sqrt', n2);
-    // n2 = Math.trunc(n2);
-    // console.log('Math.trunc', n2);
-
-    // n2 = Math.trunc(n2) + 1;
-    // console.log('n2', n2, 'n2*n2', n2 * n2);
-    // console.log(`isSquare ${n2} ${isSquare(n2)}`);
+    console.log(`After while isSquare ${n} + ${n2} ${isSquare(n + n2)}`);
 
     return n2;
 }
 
-console.log(solve(3));
+console.log(solve(17));
 
 // assert.strictEqual(solve(3), 1)
 // assert.strictEqual(solve(4), -1)

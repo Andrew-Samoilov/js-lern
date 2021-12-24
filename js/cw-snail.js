@@ -1,4 +1,4 @@
-console.log(" -  * Snail Sort * - ");
+console.log(" -  * Snail Sort *");
 console.log('   N               +--> x');
 console.log('W  +  E            |');
 console.log('   S               y');
@@ -13,10 +13,12 @@ function snail(array) {
     let direction = 'East';
     let deltaY = 0;
     let deltaX = 1;
+    let tmplValue = array[y][x];
     console.log(`Start direction ${direction}, dY=${deltaY} dX=${deltaX}`);
 
     function changeDirection(dir) {
-        snailArray.pop();
+        tmplValue = snailArray.pop();
+
         switch (dir) {
             case 'East':
                 x -= 1;
@@ -65,8 +67,10 @@ function snail(array) {
     }
     // North, South, East, West
 
-    for (let i = 0; i < 100; i++) {
-
+    for (let i = 0; i < array.length * array[0].length * array.length; i++) {
+        // if (array[y][x] === null) {
+        //     changeDirection(direction);
+        // };
         if (x < 0) {
             // x = 0;
             changeDirection(direction);
@@ -79,20 +83,30 @@ function snail(array) {
             // y = 0;
             changeDirection(direction);
         };
-        if (y > array[0].length) {
+        if (y > array[0].length - 1) {
             // y -= 1;
             changeDirection(direction);
         };
 
-        if (y > array[0].length - 1 || array[y][x] === false || array[y][x] === undefined) {
+        if (array[y][x] === false || array[y][x] === undefined) {
             // console.log(`Direction ${direction}`);
 
             changeDirection(direction);
             // console.log(`After change direction ${direction}, array[${y}][${x}]-`, array[y][x],);
         }
+        // if (array[y][x] === null) {
+        //     changeDirection(direction);
+        // };
 
-        console.log(`Direction ${direction}, array[${y}][${x}]-`, array[y][x]);
-        snailArray.push(array[y][x]);
+        console.log(`Direction ${direction}, arr[${y}][${x}]`, array[y][x], ' tmplV', tmplValue);
+
+        if (array[y][x] === null) {
+            snailArray.push(tmplValue);
+        } else {
+            snailArray.push(array[y][x]);
+        };
+        array[y][x] = null;
+        // console.log(`Direction ${direction}, array[${y}][${x}]-`, array[y][x]);
         // console.log(' snailArray ', ...snailArray);
         x += deltaX;
         y += deltaY;

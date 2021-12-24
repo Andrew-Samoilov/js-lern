@@ -10,7 +10,7 @@ function solve(n) {
     let counter = 0;
     const maxCount = n / 2 + 1;
 
-    // console.log('------- дивимся на квадратні номери потім шукаємо дельту');
+    // console.log('------- дивимся на квадратні номери, потім шукаємо дельту');
     // let previousValue = 0;
     // for (let index = 1; index < 1200; index++) {
     //     if (isSquare(index)) {
@@ -26,12 +26,10 @@ function solve(n) {
     };
 
     let n2 = 1;
-
     console.log(`isSquare ${n2} ${isSquare(n2)}`);
     console.log(`isSquare ${n} + ${n2} ${isSquare(n + n2)}`);
 
     let is2Square = false;
-
     do {
         // console.log('Inside do while - n2', n2);
         if (isSquare(n2)) {
@@ -43,19 +41,15 @@ function solve(n) {
             };
         }
         // console.log(`n2, ${n2}`, 'delta', delta);
-
         n2 += delta;
-
         delta = Math.trunc(Math.sqrt(n2) * 2 + 1);
         // console.log(` n2, ${n2}`);
         counter++;
-
         if (counter > maxCount) {
             console.log(`maxCount !, isSquare ${n} + ${n2} ${isSquare(n + n2)}, counter = ${counter}`);
             return -1;
         }
     } while (!is2Square);
-
 }
 
 

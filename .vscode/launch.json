@@ -9,11 +9,9 @@
             "port": 9222,
             "request": "attach",
             "type": "pwa-chrome",
-            "webRoot": "${workspaceFolder}",
+            "webRoot": "${workspaceFolder}"
         }
-
     ],
-    
     "settings": {
         "workbench.colorCustomizations": {
             "statusBar.background": "#1a1a1a7e",

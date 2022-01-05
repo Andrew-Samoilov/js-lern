@@ -4,17 +4,36 @@ console.log();
 
 console.log('#5 Triangular Numbers');
 
-function triNum(Num) {
-    for (let i = 2; i < Num; i++) {
-        console.log(i * (i + 1) / 2);
 
+function isTriangular(t) {
+    // це ката НЕ 7 рівня
+
+    console.log(` t =`, t);
+    if (t === 1) return true;
+
+    for (let i = 0; i < t; i++) {
+        console.log(i, i * (i + 1) / 2);
+        if (t === (i * (i + 1) / 2)) return true;
+        if (i > t) return false;
     }
-
     return false;
-
 }
 
-console.log(triNum(100));
+console.log(isTriangular(852165));
+
+console.log(isTriangular(3), true);
+console.log(isTriangular(6), true);
+console.log(isTriangular(10), true);
+console.log(isTriangular(1), true);
+console.log(isTriangular(15), true);
+console.log(isTriangular(21), true);
+console.log(isTriangular(28), true);
+console.log(isTriangular(2), false);
+console.log(isTriangular(7), false);
+console.log(isTriangular(14), false);
+console.log(isTriangular(27), false);
+
+console.log(isTriangular(10), true);
 
 
 

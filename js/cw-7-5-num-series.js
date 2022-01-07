@@ -1,5 +1,30 @@
-console.log(" -  * CodeWars * Balanced Number * - ");
+console.log(" -  * CodeWars * - ");
 console.log('* Special Numbers Series *');
+
+console.log(' Disarium Number ', 3);
+
+function disariumNumber(n) {
+    console.log(n);
+    let sumNum = 0,
+        sumAll = 0;
+    let templArr = String(n).split('');
+    console.log(templArr);
+    for (let i = 1; i <= templArr.length; i++) {
+        console.log(templArr[i - 1], i);
+        for (let j = 0; j < i; j++) {
+            sumNum = templArr[i - 1] * templArr[i - 1];
+        }
+        console.log('emplArr[i - 1]', templArr[i - 1], 'sumNum', sumNum);
+    }
+}
+
+
+console.log(disariumNumber(89), "Disarium !!");
+console.log(disariumNumber(564), "Not !!");
+console.log(disariumNumber(1024), "Not !!");
+console.log(disariumNumber(135), "Disarium !!");
+console.log(disariumNumber(136586), "Not !!");
+
 
 
 {
@@ -34,15 +59,15 @@ console.log('* Special Numbers Series *');
     }
 
     console.log(balancedNum(7), "Balanced");
-    console.log(balancedNum(959), "Balanced");
-    console.log(balancedNum(13), "Balanced");
-    console.log(balancedNum(432), "Not Balanced");
-    console.log(balancedNum(424), "Balanced");
-    console.log(balancedNum(1024), "Not Balanced");
-    console.log(balancedNum(66545), "Not Balanced");
-    console.log(balancedNum(295591), "Not Balanced");
-    console.log(balancedNum(1230987), "Not Balanced");
-    console.log(balancedNum(56239814), "Balanced");
+    // console.log(balancedNum(959), "Balanced");
+    // console.log(balancedNum(13), "Balanced");
+    // console.log(balancedNum(432), "Not Balanced");
+    // console.log(balancedNum(424), "Balanced");
+    // console.log(balancedNum(1024), "Not Balanced");
+    // console.log(balancedNum(66545), "Not Balanced");
+    // console.log(balancedNum(295591), "Not Balanced");
+    // console.log(balancedNum(1230987), "Not Balanced");
+    // console.log(balancedNum(56239814), "Balanced");
 
     function balancedNumWithComents(number) {
         let strNum = number.toString()

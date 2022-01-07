@@ -3,7 +3,7 @@ console.log(' * Special Numbers Series *');
 
 console.log(' Sum of Two Integers');
 
-function addByFingers(x, y) {
+function add(x, y) {
     console.log(`x y`, x, y);
     let templArr = [];
 
@@ -13,15 +13,15 @@ function addByFingers(x, y) {
         y = tmp;
         // console.log(`x<y after change`, x, y);
 
-        let minY = 0;
+        let modY = 0;
         if (y < 0) {
             // console.log(`y < 0`, y);
-            minY = Math.abs(y);
+            modY = y * -1;
             // console.log(`minY`, minY);
-            if (Math.abs(y) > x) {
+            if (modY > x) {
                 // console.log(`Math.abs(y) > x ${Math.abs(y)} > ${x}`);
             }
-            for (let i = 0; i < Math.abs(y); i++) {
+            for (let i = 0; i < modY; i++) {
                 templArr.push('+');
             }
             for (let j = 0; j < x; j++) {

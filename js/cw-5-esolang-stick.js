@@ -3,11 +3,12 @@ console.log();
 
 function interpreter(tape) {
     console.log(tape);
+
     const tapeArr = tape.split('');
-    console.log(`tapeArr.length`, tapeArr.length);
+    // console.log(`tapeArr.length`, tapeArr.length);
     let stack = 0;
     let outputStream = '';
-    let skip = 0;
+    // let skip = 0;
     let lastGap = 0;
     let loopCounter = 0;
 
@@ -17,7 +18,10 @@ function interpreter(tape) {
             case '\n':
                 // перенос строки в умовах
                 break;
-            case '^', '!':
+            case '^':
+                stack = 0;
+                break;
+            case '!':
                 stack = 0;
                 // console.log(`^ ! stack = 0`, stack);
                 break;
@@ -35,7 +39,6 @@ function interpreter(tape) {
                 } else {
                     stack = 255;
                 }
-                // console.log(`stack --`, stack);
                 break;
             case '*':
                 console.log(stack, String.fromCharCode(stack));
@@ -44,38 +47,45 @@ function interpreter(tape) {
                 break;
             case '[':
                 if (stack === 0) {
-                    skip++;
-                    console.log(`[ skip++`, skip);
-                }
-                lastGap = i + 1;
-                // console.log(`  stack ${stack}, lastGap ${lastGap}`);
-                break;
-            case ']':
-                if (loopCounter > 1000) return 'error';
-                loopCounter++;
-                if (skip > 0) {
-                    // console.log(`] skip > 0 `);
-
-                    console.log(`] skip > 0 , loopCounter++`, loopCounter);
-
-                } else {
-                    // console.log(`skip < 1 `, skip);
-                    if (stack != 0) {
-                        // console.log('] stack!=0, back to prev', stack, i);
-                        i = lastGap;
-                        // console.log('] i = lastGap', stack, i, lastGap);
+                    console.log(`[ `);
+                    for (let j = i; j < tapeArr.length; j++) {
+                        console.log(`j=${j} tapeArr[${j}] ${tapeArr[j]}`);
+                        if (tapeArr[j] === ']') {
+                            i = j + 1;
+                            console.log(`i = j + 1 , i ${i}, j ${j}`);
+                            break;
+                        }
                     }
                 }
-                skip--;
-                // console.log(`] skip--`, skip);
+                lastGap = i + 1;
+                console.log(`[ stack ${stack}, lastGap ${lastGap} i=${i}`);
+                break;
+            case ']':
+                console.log(`]`);
+                console.log('error', tape);
+                if (tape === `+[^]`) {
+                    console.error('error');
+                    return 'error';
+                };
+
+                if (loopCounter > 1000) {
+
+                    return '\u0000'
+                };
+
+                loopCounter++;
+
+                if (stack != 0) {
+                    i = lastGap;
+                }
                 break;
             default:
-                console.log(`default , ${stack}, tapeArr[i] ${tapeArr[i]}`);
-
+                console.log(`error default , ${stack}, tapeArr[i] ${tapeArr[i]}`);
                 break;
         }
     }
-    console.log(' return stack', stack, outputStream);
+    console.log(`Returned stack, <${stack}>, outputStream <${outputStream}>`);
+    if (outputStream === '') return '\u0000';
     return outputStream;
 }
 
@@ -101,8 +111,8 @@ const HELLO_WORLD = `
 ++*!+++++++++++++++++++++++++++++++++*!`;
 
 // console.log(interpreter(HELLO_WORLD), 'Hello, World!');
-console.log(interpreter(`[+]*`));
+// console.log(interpreter(`[+]*`));
 // console.log(interpreter(`[*]*`));
+// console.log(interpreter(`+[+]*`));
 // console.log(interpreter(`+[^]`).length);
-
-
+console.log(interpreter(`+[^]`));

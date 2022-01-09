@@ -2,7 +2,7 @@ console.log(" -  * CodeWars * Esolang: Stick * - ");
 console.log();
 
 function interpreter(tape) {
-    console.log(tape);
+    console.log(tape,);
 
     const tapeArr = tape.split('');
     // console.log(`tapeArr.length`, tapeArr.length);
@@ -19,7 +19,7 @@ function interpreter(tape) {
                 // перенос строки в умовах
                 break;
             case '^':
-                stack = 0;
+                tape.pop();
                 break;
             case '!':
                 stack = 0;
@@ -63,10 +63,10 @@ function interpreter(tape) {
             case ']':
                 console.log(`]`);
                 console.log('error', tape);
-                if (tape === `+[^]`) {
-                    console.error('error');
-                    return 'error';
-                };
+                // if (tape === `+[^]`) {
+                //     console.error('error');
+                //     return 'error';
+                // };
 
                 if (loopCounter > 1000) {
 

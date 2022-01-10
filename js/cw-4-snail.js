@@ -6,14 +6,26 @@ console.log('   S               y');
 function snail(array) {
     console.table(array);
     console.log(`array.length=${array.length * array.length}`);
+    let x = 0;
     let dx = +1;
     let lenx = array.length;
+    let y = 0;
     let dy = 0;
-    let leny = array.length;
+    let leny = array.length - 1;
+
+    let res = [];
+    res.push(array[y][x]);
+
+    for (let i = 0; i < array.length * array.length; i++) {
+        console.log(`array[${y}][${x}] = ${array[y][x]} res=${res}`);
+
+        x += dx;
+        y += dy;
+        if (array[y][x]) res.push(array[y][x]);
+    }
 
 
-
-
+    return res;
 }
 
 // const arr = [
@@ -61,7 +73,7 @@ console.log('go ', snail(arr));
 
             for (let i = 0; i < array.length; i++) {
                 for (let j = 0; j < array[1].length; j++) {
-                    // console.log(` array[${i}][${j}] ${array[i][j]}`);
+                    // console.log(` array[${ i }][${ j }] ${ array[i][j] }`);
                 }
                 array[i].unshift('x');
                 array[i].push('x');
@@ -82,8 +94,8 @@ console.log('go ', snail(arr));
         let deltaY = 0;
         let deltaX = 1;
         let tmplValue = array[y][x];
-        // console.log(`Start direction ${direction}, dY=${deltaY} dX=${deltaX}`);
-        // console.log(`Start position, array[${y}][${x}]-`, array[y][x],);
+        // console.log(`Start direction ${ direction }, dY = ${ deltaY } dX = ${ deltaX }`);
+        // console.log(`Start position, array[${ y }][${ x }] - `, array[y][x],);
         // start init
 
         // North, South, East, West
@@ -93,25 +105,25 @@ console.log('go ', snail(arr));
                     direction = `South`;
                     deltaY = 1;
                     deltaX = 0;
-                    // console.log(` New direction: ${direction}, dY=${deltaY} dX=${deltaX}`);
+                    // console.log(` New direction: ${ direction }, dY = ${ deltaY } dX = ${ deltaX }`);
                     break;
                 case 'South':
                     direction = `West`;
                     deltaY = 0;
                     deltaX = -1;
-                    // console.log(` New direction: ${direction}, dY=${deltaY} dX=${deltaX}`);
+                    // console.log(` New direction: ${ direction }, dY = ${ deltaY } dX = ${ deltaX }`);
                     break;
                 case 'West':
                     direction = `North`;
                     deltaY = -1;
                     deltaX = 0;
-                    // console.log(`New direction: ${direction}, dY=${deltaY} dX=${deltaX}`);
+                    // console.log(`New direction: ${ direction }, dY = ${ deltaY } dX = ${ deltaX }`);
                     break;
                 case 'North':
                     direction = `East`;
                     deltaY = 0;
                     deltaX = 1;
-                    // console.log(`  New direction: ${direction}, dY=${deltaY} dX=${deltaX}`);
+                    // console.log(`  New direction: ${ direction }, dY = ${ deltaY } dX = ${ deltaX }`);
                     break;
                 default:
                     break;
@@ -128,10 +140,10 @@ console.log('go ', snail(arr));
             yNew = y + deltaY;
             xNew = x + deltaX;
             array[y][x] = 'x';
-            // console.log(`old=0, array[${y}][${x}]-`, array[y][x],);
+            // console.log(`old = 0, array[${ y }][${ x }] - `, array[y][x],);
 
             if (array[yNew][xNew] === 'x') {
-                // console.log(`Find 0, array[${yNew}][${xNew}], ${array[yNew][xNew]} change direction...`);
+                // console.log(`Find 0, array[${ yNew }][${ xNew }], ${ array[yNew][xNew] } change direction...`);
                 changeDirection(direction);
             } else {
                 y = yNew;
@@ -141,7 +153,7 @@ console.log('go ', snail(arr));
                 snailArray.push(array[y][x]);
 
             }
-            // console.log(`_ ${direction}, array[${y}][${x}] - `, array[y][x],);
+            // console.log(`_ ${ direction }, array[${ y }][${ x }] - `, array[y][x],);
         }
         return snailArray;
         if (array[[1]] = 1) return 1;

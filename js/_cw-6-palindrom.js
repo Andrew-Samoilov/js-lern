@@ -12,7 +12,7 @@ function solve(s) {
     console.log(arr1.length - 0);
 
     for (let i = 0; i < arr1.length; i++) {
-        console.log(i, 'arr1[i]! arr2[arr1.length]', arr1[i], arr1[arr1.length - i]);
+        console.log(i, 'arr1[i]! arr2[arr1.length]', arr1[i], arr1[arr1.length - (!i)]);
         // if (arr1[i] != arr2[i]) {
         //     console.log(i, 'arr1[i]!= arr2[i]', arr1[i], arr2[i]);
         //     errorsCounter++;

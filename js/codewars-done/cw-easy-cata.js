@@ -1,6 +1,23 @@
 console.log(" -  * CodeWars * - ");
 console.log();
 
+{
+    function removeChar(str) {
+        let res = str.split('');
+        res.shift();
+        res.pop();
+        // res = res.join('');
+        // console.log(res);
+        return res.join('');
+    };
+    // console.log(removeChar(str));
+    console.log(removeChar('eloquent'), 'loquen');
+    console.log(removeChar('country'), 'ountr');
+    console.log(removeChar('person'), 'erso');
+    console.log(removeChar('place'), 'lac');
+    console.log(removeChar('ooopsss'), 'oopss');
+}
+
 console.log(" -  * Difference of Volumes of Cuboids * - ");
 function findDifferenceWithComents(a, b) {
     if (a.reduce((previousValue, number) => previousValue * number) > b.reduce((previousValue, number) => previousValue * number)) {

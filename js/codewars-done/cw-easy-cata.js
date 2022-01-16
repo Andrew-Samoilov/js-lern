@@ -2,6 +2,24 @@ console.log(" -  * CodeWars * - ");
 console.log();
 
 {
+    class SmallestIntegerFinder {
+        findSmallestInt(args) {
+            // console.log(args.sort((a, b) => a - b));
+            return args.sort((a, b) => a - b)[0];
+        }
+    }
+
+    let sif = new SmallestIntegerFinder();
+
+    console.log(sif.findSmallestInt([78, 56, 232, 12, 8]), 8);
+    console.log(sif.findSmallestInt([78, 56, 232, 12, 18]), 12);
+    console.log(sif.findSmallestInt([78, 56, 232, 412, 228]), 56);
+    console.log(sif.findSmallestInt([78, 56, 232, 12, 0]), 0);
+    console.log(sif.findSmallestInt([1, 56, 232, 12, 8]), 1);
+
+}
+
+{
     function removeChar(str) {
         let res = str.split('');
         res.shift();

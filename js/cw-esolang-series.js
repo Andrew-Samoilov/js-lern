@@ -7,7 +7,6 @@ function interpreter(code, tape) {
     console.log(`code ${code}, tape ${tape}`);
     let outputTape = tape.split('');
     let pointer = 0;
-    let lastGap = 0;
 
     for (let i = 0; i < code.length; i++) {
         // console.log(i, code[i]);
@@ -34,27 +33,33 @@ function interpreter(code, tape) {
                 pointer--;
                 if (pointer < 0) return outputTape.join('');
                 break;
-            case '[':
-                if (outputTape[pointer] === '0') {
-                    console.log(`[ and outputTape[pointer] === '0' `);
-
-                    for (let j = i; j < code.length; j++) {
-                        console.log(`j=${j} code[${j}] ${code[j]}`);
-                        if (code[j] === ']') {
-                            console.error(`дописати ще логіки тут`);
-                            pointer = j + 1;
-                            console.error(`! , i ${i}, j ${j}, pointer ${pointer},  `);
+            case ']':
+                console.error(` Дописати логіку сюди (. ']' and outputTape[pointer] !=${outputTape[pointer]}`);
+                if (outputTape[pointer] != 0) {
+                    console.log(` ']' && outputTape[${pointer}] != 0 (${outputTape[pointer]})`);
+                    for (let j = i; j > -1; j--) {
+                        if (code[j] != '[') {
+                            console.log(` code[${j}]='[', i=j+1;`);
+                            i = j + 1;
+                            console.log(` !! i=${i}, j=${j}, pointer='${pointer}', code[${i}]='${code[i]}'`);
                             break;
                         }
                     }
-
-                    lastGap = i + 1;
                 }
                 break;
-            case ']':
-                if (outputTape[pointer] != 0) {
-                    console.error(`дописати ще логіки тут`);
-                    // pointer = lastGap;
+            case '[':
+                console.error(` Дописати логіку сюди (.'[' `);
+                if (outputTape[pointer] === '0') {
+                    console.error(` Дописати логіку сюди (.'[' && outputTape[${pointer}] === '0'`);
+                    for (let j = i + 1; j < code.length; j++) {
+                        // console.log(`j=${j} code[${j}] ${code[j]}`);
+                        if (code[j] === ']') {
+                            // console.log(`code[${j}]=']', i=j+1;`);
+                            i = j + 1;
+                            console.log(` ! i=${i}, j=${j}, pointer=${pointer}, code[${i}]='${code[i]}'`);
+                            break;
+                        }
+                    }
                 }
                 break;
 
@@ -67,14 +72,9 @@ function interpreter(code, tape) {
     return outputTape.join('');
 }
 
-// console.log(interpreter("[>*]", "010"), "010");
-
-//       string code = "[<<>>**[]]>*"; тут ломаэться, дописати логіку []
-//         string tape = "00101100";
-//         string expectedOutput = "01101100";
-
-console.log(interpreter("[<<>>**[]]>*", "00101100"), "01101100");
-// console.log(interpreter("*[>*]", "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"), "?");
+console.log(interpreter("[[]*>*>*>]", "000"), "000");
+// console.log(interpreter("[>[*>*>*>]>]", "10110"), "10101");
+// console.log(interpreter("*[>*]", "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"), "'1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'");
 // console.log(interpreter("[>*]", "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"), "?");
 // console.log(interpreter("*", "00101100"), "10101100");
 // Flips the second and third cell of the tape

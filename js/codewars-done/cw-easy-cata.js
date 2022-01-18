@@ -2,6 +2,41 @@ console.log(" -  * CodeWars * - ");
 console.log();
 
 {
+    function scrollingText(text) {
+        // console.log(text);
+        text = text.toUpperCase();
+        const res = [];
+        res.push(text);
+        for (let i = 0; i < text.length - 1; i++) {
+            // console.log(text.slice(i + 1), text.slice(0, i + 1));
+            res.push(text.slice(i + 1) + text.slice(0, i + 1));
+        }
+
+        return res;
+    }
+    console.log(scrollingText("codewars"));
+    console.log(scrollingText("abc"), ["ABC", "BCA", "CAB"]);
+}
+
+{
+    function stringMerge(string1, string2, letter) {
+        // console.log(string1, string2, letter);
+        // console.log(string1.indexOf(letter), string2.indexOf(letter));
+        // console.log(string1.slice(0, string1.indexOf(letter) + 1) + string2.slice(string2.indexOf(letter) + 1));
+        return string1.slice(0, string1.indexOf(letter) + 1) + string2.slice(string2.indexOf(letter) + 1);
+
+    }
+
+    console.log(stringMerge("person", "here", "e"), "pere");
+    console.log(stringMerge("apowiejfoiajsf", "iwahfeijouh", "j"), "apowiejouh");
+    console.log(stringMerge("abcdefxxxyzz", "abcxxxyyyxyzz", "x"), "abcdefxxxyyyxyzz");
+    console.log(stringMerge("12345654321", "123456789", "6"), "123456789");
+    console.log(stringMerge("JiOdIdA4", "oopopopoodddasdfdfsd", "d"), "JiOdddasdfdfsd");
+    console.log(stringMerge("incredible", "people", "e"), "increople");
+
+}
+
+{
     class SmallestIntegerFinder {
         findSmallestInt(args) {
             // console.log(args.sort((a, b) => a - b));

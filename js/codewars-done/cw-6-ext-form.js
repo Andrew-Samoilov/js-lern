@@ -42,12 +42,13 @@ function expandedForm(num) {
     console.log(res2.join(''));
 
     res = expandedForm1(num);
-    res = res + ' + ' + res2.join('')
+    res = (num < 1) ? res = res2.join('') : res = res + ' + ' + res2.join('');
+
     return (res.slice(-3) === ' + ') ? res.slice(0, -3) : res;
 }
 // console.log(expandedForm(807.304), '|/800 + 7 + 3/10 + 4/1000');
 console.log(expandedForm(0.501), '&*');
-// console.log(expandedForm(4.28), '4 + 2/10 + 8/100');
+console.log(expandedForm(4.28), '4 + 2/10 + 8/100');
 // console.log(expandedForm(7.304), '|| 7 + 3/10 + 4/1000');
 
 {

@@ -1,0 +1,19 @@
+{
+  "name": "js-lern",
+  "version": "1.0.0",
+  "description": "4 my learning JS Для тренування по Java Script ... \"settings\": { \"workbench.colorCustomizations\": {\r \"statusBar.background\": \"#1a1a1a7e\", \"statusBar.noFolderBackground\": \"#1a1a1a7e\",\r \"statusBar.debuggingBackground\": \"#1a1a1a7e\" } }",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andrew-Samoilov/js-lern.git"
+  },
+  "author": "Andrew Samoilov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andrew-Samoilov/js-lern/issues"
+  },
+  "homepage": "https://github.com/Andrew-Samoilov/js-lern#readme"
+}

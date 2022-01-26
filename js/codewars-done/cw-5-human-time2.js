@@ -1,4 +1,4 @@
-console.log(" - * Code wars.Human Readable Time * - ");
+console.log(" - * Code wars. Human Readable Time * - ");
 console.log();
 console.log();
 

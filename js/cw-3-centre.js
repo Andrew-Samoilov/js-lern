@@ -14,7 +14,7 @@ function central_pixels(img, colour) {
         }
     }
 
-    let cashImg = img;
+    let cacheImg = img;
     drawImage(img);
 
     for (let i = 0; i < img.pixels.length; i++) {
@@ -22,26 +22,37 @@ function central_pixels(img, colour) {
 
         // cпівпадає з тим, шо шукаємо, робимо
         if (img.pixels[i] === colour) {
-            if (
-                img.pixels[i - 1] === undefined || //left
-                cashImg.pixels[i - 1] === 0 || 
-                img.pixels[i + 1] === undefined || //right
-                cashImg.pixels[i + 1] === 0 ||
-                img.pixels[i + 1] !=colour ||
-                img.pixels[i - img.width] === undefined || //top
-                cashImg.pixels[i - img.width] === 0 ||
-                img.pixels[i + img.width] === undefined || //bottom
-                img.pixels[i + img.width] != colour ||
-                cashImg.pixels[i + img.width] === 0
-            ) {
-                cashImg.pixels[i] = 1;
+
+            /* дивимся по сторонам, циrлом змінємо довжину погляду, 
+            до img.pixels.length не дійдемо, просте обмеження */
+            for (let j = 1; j < img.pixels.length; j++) {
+
+
+                if (
+                    img.pixels[i - j] === undefined || //left
+                    cacheImg.pixels[i - j] === 0 ||
+                    img.pixels[i + j] === undefined || //right
+                    cacheImg.pixels[i + j] === 0 ||
+                    img.pixels[i + j] != colour ||
+                    img.pixels[i - img.width * j] === undefined || //top
+                    cacheImg.pixels[i - img.width * j] === 0 ||
+                    img.pixels[i + img.width * j] === undefined || //bottom
+                    img.pixels[i + img.width * j] != colour ||
+                    cacheImg.pixels[i + img.width * j] === 0
+                ) {
+                    cacheImg.pixels[i] = j;
+                    break;
+                }
             }
+
         } else {
-            cashImg.pixels[i] = 0;
+            cacheImg.pixels[i] = 0;
         }
+
+
     }
-    drawImage(cashImg);
-    return cashImg;
+    drawImage(cacheImg);
+    return cacheImg;
 }
 
 class Image {
@@ -53,20 +64,28 @@ class Image {
 }
 
 let ascending = (a, b) => a - b;
-// prettier-ignore
-let picture = new Image( 
-   [1,1,4,4,4,4,2,2,2,2,
-    1,1,1,1,2,2,2,2,2,2,
-    1,1,1,1,2,2,2,2,2,2,
-    1,1,1,1,1,3,2,2,2,2,
-    1,1,1,1,1,3,3,3,2,2,
-    1,1,1,1,1,1,3,3,3,3], 10, 6 );
+
+let picture = new Image(
+    [1, 1, 4, 4, 4, 4, 2, 2, 2, 2, // prettier-ignore
+        1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 3, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 3, 3, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 3, 3, 3, 3], 10, 6);
 let imag;
+let picture2 = new Image(
+    [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, // prettier-ignore
+        1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
+        1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 3, 3], 10, 7);
 
 // Only one red pixel has the maximum depth of 3:
-imag = picture;
+imag = picture2;
 let red_ctr = [32];
-console.log(central_pixels(imag, 2), red_ctr);
+console.log(central_pixels(imag, 1), red_ctr);
 
 // // Multiple blue pixels have the maximum depth of 2:
 // let blue_ctr = [ 16,17,18,26,27,28,38 ];
@@ -89,21 +108,45 @@ console.log(central_pixels(imag, 2), red_ctr);
 // let new_ctr = [ 11,21,41,43 ];
 // console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
 /* look left
-if (img.pixels[i - 1] === undefined || cashImg.pixels[i - 1] === 0) {
+if (img.pixels[i - 1] === undefined || cacheImg.pixels[i - 1] === 0) {
     console.log(`- 1[${i - 1}]=u`);
-    cashImg.pixels[i] = 1;
+    cacheImg.pixels[i] = 1;
 }
 // look right
-if (img.pixels[i + 1] === undefined || cashImg.pixels[i + 1] === 0) {
+if (img.pixels[i + 1] === undefined || cacheImg.pixels[i + 1] === 0) {
     console.log(`+ 1[${i + 1}]=u`);
-    cashImg.pixels[i] = 1;
+    cacheImg.pixels[i] = 1;
 }
 // look top
-if (img.pixels[i - img.width] === undefined || cashImg.pixels[i - img.width] === 0) {
+if (img.pixels[i - img.width] === undefined || cacheImg.pixels[i - img.width] === 0) {
     console.log(`img.pixels[${i} - ${img.width}] ${img.pixels[i - img.width]}`);
-    cashImg.pixels[i] = 1;
+    cacheImg.pixels[i] = 1;
 }
 // look down
-if (img.pixels[i + img.width] === undefined || cashImg.pixels[i + img.width] === 0) {
+if (img.pixels[i + img.width] === undefined || cacheImg.pixels[i + img.width] === 0) {
     console.log(`img.pixels[${i} + ${img.width}] ${img.pixels[i + img.width]}`);
-    cashImg.pixels[i] = 1;*/
+    cacheImg.pixels[i] = 1;*/
+
+/*    старий варіант умов (з 1 )
+
+if (img.pixels[i] === colour) {
+
+    if (
+        img.pixels[i - 1] === undefined || //left
+        cacheImg.pixels[i - 1] === 0 ||
+        img.pixels[i + 1] === undefined || //right
+        cacheImg.pixels[i + 1] === 0 ||
+        img.pixels[i + 1] != colour ||
+        img.pixels[i - img.width] === undefined || //top
+        cacheImg.pixels[i - img.width] === 0 ||
+        img.pixels[i + img.width] === undefined || //bottom
+        img.pixels[i + img.width] != colour ||
+        cacheImg.pixels[i + img.width] === 0
+    ) {
+        cacheImg.pixels[i] = 1;
+    }
+
+
+} else {
+    cacheImg.pixels[i] = 0;
+}*/

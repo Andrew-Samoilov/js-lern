@@ -1,8 +1,39 @@
 console.log(" - * Code wars - small exersice * - ");
 console.log();
 console.log();
-console.log();
 
+{
+    console.log('Longest vowel chain');
+    // aeiou - vovel in this kata 
+
+    function solve(s) {
+        let vovelCount = 0;
+        let max = 0;
+        for (let i = 0; i < s.length; i++) {
+            let zz = s[i].toLowerCase();
+
+            if (zz === 'a' || zz === 'e' || zz === 'i' || zz === 'o' || zz === 'u') {
+                vovelCount++;
+            } else {
+                if (max < vovelCount) max = vovelCount;
+                vovelCount = 0;
+            }
+        }
+
+        if (max < vovelCount) max = vovelCount;
+        return max;
+    }
+
+    console.log(solve("codewarriors"), 2);
+    console.log(solve("suoidea"), 3);
+    console.log(solve("ultrarevolutionariees"), 3);
+    console.log(solve("strengthlessnesses"), 1);
+    console.log(solve("cuboideonavicuare"), 2);
+    console.log(solve("chrononhotonthuooaos"), 5);
+    console.log(solve("iiihoovaeaaaoougjyaw"), 8);
+
+
+}
 // Bool 2 string
 function boolToStr(b = false) {
     return b ? "Yes" : "No";

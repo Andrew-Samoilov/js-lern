@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Andrew-Samoilov/js-lern/issues"
   },
-  "homepage": "https://github.com/Andrew-Samoilov/js-lern#readme"
+  "homepage": "https://github.com/Andrew-Samoilov/js-lern#readme",
+  "dependencies": {
+    "axios": "^0.26.0"
+  }
 }

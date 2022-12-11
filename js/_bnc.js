@@ -1,15 +1,19 @@
 console.log(' -  * Bnc API *  * - ');
 
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+var axios = require('axios');
 
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
+var config = {
+    method: 'get',
+    url: 'https://testnet.binance.vision/api/v3/ticker/24hr',
+    headers: {
+        'Content-Type': 'application/json'
+    }
 };
 
-fetch("https://testnet.binance.vision/api/v3/ticker/24hr", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+axios(config)
+    .then(function (response) {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });

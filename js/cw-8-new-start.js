@@ -38,14 +38,29 @@ console.log(countSheeps(array1), 17, "There are 17 sheeps in total");
 console.log(' -  * CodeWars * Min Max * - ');
 console.log();
 
+var minFor = function (list) {
+    let minimum = 0;
+    for (let index = 0; index < list.length; index++) {
+        if (list[index] < minimum) {
+            minimum = list[index];
+        }
+    }
+    return minimum;
+}
 var min = function (list) {
-
-    return list[0];
+    let minimum = list[0];
+    for (let index = 0; index < list.length; index++) {
+        (list[index] < minimum) ? minimum = list[index] : list[index];
+    }
+    return minimum;
 }
 
 var max = function (list) {
-
-    return list[0];
+    let maximum = list[0];
+    for (let index = 0; index < list.length; index++) {
+        (list[index] > maximum) ? maximum = list[index] : list[index];
+    }
+    return maximum;
 }
 
 console.log(min([-52, 56, 30, 29, -54, 0, -110]), -110);

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Andrew-Samoilov/js-lern#readme",
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.0",
+    "chai": "^4.3.7"
   }
 }

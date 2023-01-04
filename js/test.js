@@ -1,16 +1,16 @@
 console.log(' -  * test * - ');
-console.log(' -  * CodeWars *  * - ');
+// console.log(' -  * CodeWars *  * - ');
 
-function getCommonElements(array1, array2) {
-    // Change code below this line
-    let result = [];
-    for (let i = 0; i < array1.length; i++) {
-        if (array2.includes(array1[i])) {
-            result.push(array1[i]);
-        }
-    }
-    return result;
-    // Change code above this line
+const book = {
+    title: "The Last Kingdom",
+    author: "Bernard Cornwell",
+    genres: ["historical prose", "adventure"],
+    rating: 8.38,
+};
+
+for (const key in book) {
+    // Ключ
+    console.log(key, book[key]);
+    // Значення властивості з таким ключем
+
 }
-
-console.log(getCommonElements([10, 20, 30, 40], [4, 30, 17, 10, 40]), [10, 30, 40]);

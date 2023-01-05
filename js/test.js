@@ -1,11 +1,16 @@
 console.log(' -  * test * - ');
 // console.log(' -  * CodeWars *  * - ');
-const firstGroupScores = [64, 42, 93];
-const secondGroupScores = [89, 14, 51, 26];
-const thirdGroupScores = [29, 47, 18, 97, 81];
 // Change code below this line
-const allScores = [...firstGroupScores, ...secondGroupScores, ...thirdGroupScores];
-const bestScore = Math.max(...allScores);
-const worstScore = Math.min(...allScores);
+function findMatches(array, ...args) {
+    const matches = []; // Don't change this line
+    for (let index = 0; index < array.length; index++) {
+        if (args.includes(array[index])) {
+            console.log(args.includes(array[index]));
+            matches.push(array[index]);
+        }
+    }
+    // Change code above this line
+    return matches;
+}
 
-console.log(allScores, bestScore, worstScore);
+console.log(findMatches([10, 24, 41, 6, 9, 19], 24, 11, 9, 23, 41), [24, 9, 41]);

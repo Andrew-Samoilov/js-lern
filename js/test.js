@@ -1,65 +1,62 @@
 console.log(' -  * test * - '); // console.log(' -  * CodeWars *  * - ');
 
-// const atTheOldToad = {
-//     potions: ["Speed potion", "Dragon breath", "Stone skin"],
-//     addPotion(potionName) { this.potions.push(potionName); },
-//     removePotion(potionName) { this.potions.splice(this.potions.indexOf(potionName), 1); },
-//     updatePotionName(oldName, newName) { this.potions.splice(this.potions.indexOf(oldName), 1, newName); },
-// };
+// function calculateTotalPrice(orderedItems) {
+//     let totalPrice = 0;
+//     // Change code below this line
 
-// atTheOldToad.removePotion("Dragon breath");
-// atTheOldToad.updatePotionName("Dragon breath", "Polymorth");
-// console.log(atTheOldToad.potions, ["Speed potion", "Polymorth", "Stone skin"]);
-const atTheOldToad = {
-    potions: [
-        { name: "Speed potion", price: 460 },
-        { name: "Dragon breath", price: 780 },
-        { name: "Stone skin", price: 520 },
-    ],
-    // Change code below this line
-    getPotions() {
-        return this;
-    },
-    addPotion(newPotion) {
-        for (const potion of this.potions) {
-            if (potion.name === newPotion.name) {
-                // console.log('!!!', potion.name);
-                return `Error! Potion ${potion.name} is already in your inventory!`;
-            }
+//     orderedItems.forEach(function (number) {
+//         totalPrice += number;
+//     });
+//     // for (let i = 0; i < orderedItems.length; i += 1) {
+//     //     totalPrice += orderedItems[i];
+//     // }
+
+//     // Change code above this line
+//     return totalPrice;
+// }
+
+// console.log(calculateTotalPrice([412, 371, 94, 63, 176]), 1116);
+
+// function filterArray(numbers, value) {
+//     const filteredNumbers = [];
+//     // Change code below this line
+//     numbers.forEach(number => {
+//         if (number > value) {
+//             filteredNumbers.push(number);
+//         }
+//     });
+//     // for (let i = 0; i < numbers.length; i += 1) {
+//     //     if (numbers[i] > value) {
+//     //         filteredNumbers.push(numbers[i]);
+//     //     }
+//     // }
+
+//     // Change code above this line
+//     return filteredNumbers;
+// }
+
+// console.log(filterArray([12, 24, 8, 41, 76], 20), [24, 41, 76]);
+
+const calculateTotalPrice = (orderedItems) => {
+    let totalPrice = 0;
+
+    orderedItems.forEach((item) => totalPrice += item);
+
+    return totalPrice;
+}
+
+// console.log(calculateTotalPrice([412, 371, 94, 63, 176]), 1116);
+
+const filterArray = (numbers, value) => {
+    const filteredNumbers = [];
+
+    numbers.forEach((number) => {
+        if (number > value) {
+            filteredNumbers.push(number);
         }
-        this.potions.push(newPotion);
-    },
-    removePotion(potionName) {
-        let potionIndex = -1;
-        for (let index = 0; index < this.potions.length; index++) {
-            if (this.potions[index].name === potionName) {
-                console.log('!!!', potionName);
-                potionIndex = index;
-            }
-        }
-        if (potionIndex === -1) {
-            return `Potion ${potionName} is not in inventory!`;
-        }
-        this.potions.splice(potionIndex, 1);
-    },
-    updatePotionName(oldName, newName) {
-        for (const potion of this.potions) {
-            if (potion.name === oldName) {
-                console.log('!!!', oldName, newName);
-                potion.name = newName;
-            }
-        }
-        return `Potion ${oldName} is not in inventory!`;
-    },
+    });
+
     // Change code above this line
-};
-
-console.log('getPotions ', atTheOldToad.getPotions());
-// atTheOldToad.addPotion({ name: "Invisibility", price: 620 });
-// atTheOldToad.addPotion({ name: "Power potion", price: 270 });
-console.log(atTheOldToad.removePotion('Speed potio11n'));
-// console.log('updatePotionName ', atTheOldToad.updatePotionName('Dragon breath', 'Polymorth'));
-
-// console.log('addPotion ', atTheOldToad.addPotion({ name: 'Stone skin', price: 240 }));
-// console.log(`!!!Error! Potion Stone skin is already in your inventory!`);
-// console.log('getPotions ', atTheOldToad.getPotions());
+    return filteredNumbers;
+}
+console.log(filterArray([12, 24, 8, 41, 76], 20), [24, 41, 76]);

@@ -10,6 +10,15 @@ console.log(' -  * test * - '); // console.log(' -  * CodeWars *  * - ');
 // const totalScore = students.reduce((total, student) => {    return total + student.score;}, 0);
 // const calculateTotalBalance = users => users.reduce((total, user) =>
 //     total + user.balance, 0);
+// const sortedByReversedAuthorName = [...books].sort((a, b) => b.author.localeCompare(a.author));
+// const names = [...books]
+//     .filter(books => books.rating > MIN_BOOK_RATING)
+//     .sort((a, b) => a.author.localeCompare(b.author))
+//     .map(books => books.author);
+// const getSortedFriends = users => [...users]
+//     .flatMap(users => users.friends)
+//     .filter((friend, index, user) => user.indexOf(friend) === index)
+//     .sort((a, b) => a.localeCompare(b));
 
 const users = [
     {
@@ -52,7 +61,7 @@ const users = [
         name: "Carey Barr",
         email: "careybarr@nurali.com",
         eyeColor: "blue",
-        friends: ["Jordan Sampson", "Eddie Strong"],
+        friends: ["Jordan Sampson", "Eddie Strong", "Adrian Cross"],
         isActive: true,
         balance: 3951,
         gender: "male"
@@ -61,7 +70,7 @@ const users = [
         name: "Blackburn Dotson",
         email: "blackburndotson@furnigeer.com",
         eyeColor: "brown",
-        friends: ["Jacklyn Lucas", "Linda Chapman"],
+        friends: ["Jacklyn Lucas", "Linda Chapman", "Adrian Cross", "Solomon Fokes"],
         isActive: false,
         balance: 1498,
         gender: "male"
@@ -78,9 +87,11 @@ const users = [
 ]
 
 // Change code below this line
-const getTotalFriendCount = users => users.reduce((total, user) => total + user.friends.length, 0);
-
-
+const getTotalBalanceByGender = (users, gender) => [...users]
+    .filter(users => users.gender === gender)
+    .reduce((previousValue, number) => previousValue + number.balance, 0);
+    
+    
 // Change code above this line
-
-console.log(getTotalFriendCount(users), 14);
+console.log(getTotalBalanceByGender(users, "male"), 12053);
+console.log(getTotalBalanceByGender(users, "female"), 8863);

@@ -44,3 +44,17 @@ function calculateMeanTemperature({
 }
 console.log(calculateMeanTemperature({ today: { low: 28, high: 32 }, tomorrow: { low: 25, high: 29 } }), 28.5);
 console.log(calculateMeanTemperature({ today: { low: 37, high: 40 }, tomorrow: { low: 33, high: 38 } }), 37);
+//5.12 ось так записану не пропускає
+class Car {
+    // Change code below this line
+    #brand;
+
+    constructor({ brand, model, price }) {
+        this.#brand = brand;
+        this.model = model;
+        this.price = price;
+    }
+    getBrand() { return this.#brand; };//в одну строку - непропускає, 
+    changeBrand(newBrand) { this.#brand = newBrand; };//в одну строку - непропускає, 
+    // Change code above this line
+}

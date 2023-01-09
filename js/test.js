@@ -1,41 +1,39 @@
 console.log(' -  * test * - '); // console.log(' -  * CodeWars *  * - ');
-class Car {
+
+class User {
+    email;
+
+    constructor(email) {
+        this.email = email;
+    }
+
+    get email() {
+        return this.email;
+    }
+    set email(newEmail) {
+        this.email = newEmail;
+    }
+}
+
+class Admin extends User {
     // Change code below this line
-    #brand;
-    #model;
-    #price;
+    AccessLevel;
 
-    constructor({ brand, model, price }) {
-        this.#brand = brand;
-        this.#model = model;
-        this.#price = price;
-    }
-
-    get brand() {
-        return this.#brand;
-    }
-    set brand(newBrand) {
-        this.#brand = newBrand;
-    }
-
-    get model() {
-        return this.#model;
-    }
-    set model(newModel) {
-        this.#model = newModel;
-    }
-
-    get price() {
-        return this.#price;
-    }
-    set price(newPrice) {
-        this.#price = newPrice;
+    AccessLevel = {
+        BASIC: "basic",
+        SUPERUSER: "superuser",
+    };
+    constructor({ email, AccessLevel }) {
+        super(email),
+        this.AccessLevel = AccessLevel,
     }
     // Change code above this line
 }
-const myCar = new Car({
-    brand: 'Tesla',
-    model: 'CyberTrack',
-    price: 60000
+
+const mango = new Admin({
+    email: "mango@mail.com",
+    accessLevel: Admin.AccessLevel.SUPERUSER,
 });
-console.log(myCar); 
+
+console.log(mango.email); // "mango@mail.com"
+console.log(mango.accessLevel); // "superuser"

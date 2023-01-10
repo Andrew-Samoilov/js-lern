@@ -18,15 +18,15 @@ class User {
 class Admin extends User {
     // Change code below this line
     AccessLevel;
-
-    AccessLevel = {
+    static AccessLevel = {
         BASIC: "basic",
         SUPERUSER: "superuser",
     };
-    constructor({ email, AccessLevel }) {
-        super(email),
-        this.AccessLevel = AccessLevel,
-    }
+    constructor({ email, accessLevel }) {
+        super(email);
+        this.AccessLevel = accessLevel;
+         
+ }
     // Change code above this line
 }
 

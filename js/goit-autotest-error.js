@@ -58,6 +58,3 @@ class Car {
     changeBrand(newBrand) { this.#brand = newBrand; };//в одну строку - непропускає, 
     // Change code above this line
 }
-
-
-// 5.19 

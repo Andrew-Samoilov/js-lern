@@ -27,7 +27,7 @@ function checkStorage(available, ordered) {
     // Change code above this line
     return message;
 }
-//  Вправа 17, модуль 2. так не працює, хоче '+=' замісь ++
+//  Вправа 17, модуль 2. так не працює, хоче '+=1' замісь ++, vc code робить цикл з використанням ++
 const start = 3;
 const end = 7;
 

@@ -4,7 +4,6 @@ function central_pixels(img, colour) {
     let result = [];
     let maxAttention = 0;
     let pixels = img.pixels;
-    drawImage(img);
 
 function drawImage(image = Image) {
     console.log(`function drawImage. W=${image.width}, H=${image.height}, colour = ${colour}.`);
@@ -18,7 +17,9 @@ function drawImage(image = Image) {
             tmpRes = [];
         }
     }
-}
+    }
+    
+drawImage(img);
 
     function pixAtt(coord) { // функція для визначення глибини пікселя
         // console.log('coord',coord);
@@ -27,28 +28,41 @@ function drawImage(image = Image) {
             // console.log(`j`, j);
         /* дивимся по сторонам, циклом змінємо довжину погляду,
             до pixels.length не дійдемо, просте обмеження */
+        
+            // top border
+            if (j - img.width < 0) {
+                pixelDeep = 1;
+                console.log(coord, `coord, top border, j=`, j,`, j-img.width= ${j - img.width}, pixelDeep= `, pixelDeep);      
+                return pixelDeep;
+            }
+            // right border
+            if ((coord + 1) % img.width === 0) {
+                pixelDeep = 1;
+                console.log(coord,' right border');
+                return pixelDeep;
+            }                
+            //left border
+            if ((coord + 10) % 10 === 1) {
+                pixelDeep = 1;
+                console.log(coord, 'coord, left border');
+                return pixelDeep;
+            }
+            // next color != color
+            if (img.pixels[j] != colour) {
+                pixelDeep = 1;
+                console.log(coord,' Another color', img.pixels[j], ', pixelDeep ', pixelDeep,'j=',j); 
+                return pixelDeep;
+            }   
+            
+            
+            // bottom border
+            if ((j + img.width) >= pixels.length) {
+                pixelDeep += 1;
+                console.log(coord,'coord, bottom border, j =', j, 'j+img.width = ', j+img.width);
+                return pixelDeep;
+            }
+        
 
-        //fist value
-        // if ((j - 1) < 0) {        
-        //     pixelDeep = 1;
-        //     console.log(`fist value * coord`, coord, ` j =`, j, `j - 1 = ${j - 1}`, `pixelDeep = `, pixelDeep);
-        //     continue;
-        // }
-        
-        // top border
-        if (j - img.width < 0) {
-            pixelDeep = 1;
-            console.log('top border * coord', coord, ` j =`, j, `j - img.width - j = ${j - img.width}`, `pixelDeep = `, pixelDeep);      
-            return pixelDeep;
-        }
-       
-      // bottom border
-        if ((j + img.width) >= pixels.length) {
-            pixelDeep = 1;
-            console.log('bottom border * coord', coord, ` j =`, j, `j+img.width= ${j + img.width}`, `img.width = `, img.width);
-            return pixelDeep;
-        }
-        
         
     }
     return pixelDeep;
@@ -60,6 +74,7 @@ function drawImage(image = Image) {
 
         // cпівпадає з тим, шо шукаємо, робимо
         if (pixels[i] === colour) {
+            // console.log(` Main for, coord`,i);
             // console.log(` pixels[${i}] = colour| ${colour}  pixAtt(${i}) ${pixAtt(i)} `);
             if (pixAtt(i) > maxAttention) {      
                 result.push(i); //додаємо в результат індекс масива
@@ -141,7 +156,7 @@ let picture5 = new Image(// prettier-ignore
      7, 8], 2, 2);
 
 imag = picture;
-console.log(central_pixels(imag, 2), `2`);
+console.log(central_pixels(imag, 1), `1`);
 
 
 // imag = picture2;

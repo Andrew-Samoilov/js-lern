@@ -1,13 +1,13 @@
 console.log(' -  * test * - '); 
 
 let mainBtn = document.getElementById('main_btn');
-mainBtn.addEventListener('click', Load);
+mainBtn.addEventListener('click', Trending);
 
 const API_KEY = '50540b41e66ef631d8d57e13679f9024';
 const TRENDING_TIME = 'week';
 
-function Load(){
-    console.log('clickBtn');
+function Trending(){
+    console.log('Trending');
 
     const fetchMovies = async () => {
         const response = await fetch('https://api.themoviedb.org/3/trending/all/' +
@@ -18,12 +18,23 @@ function Load(){
 
     fetchMovies()
         .then(movies => {
-            console.log(movies.results);
+            // console.log(movies.results);
             localStorage.setItem('currentPageMuvie', JSON.stringify(movies.results));
         })
         .catch(error => console.log(error));
+    
+    function Render(m) {
+        console.log('Render',m);
+    }
+
+    Render(localStorage.getItem('currentPageMuvie'));
 
 }
+
+
+
+
+
 
 //https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 

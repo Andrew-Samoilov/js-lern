@@ -7,7 +7,7 @@ mainBtn.addEventListener('click', Trending);
 
 let searchBtn = document.getElementById('search_btn');
 searchBtn.addEventListener('click', Searh);
-let inputMuvie = document.getElementById('search_muvie');
+let inputMuvie = document.getElementById('search_movie');
 
 
 function Searh() {
@@ -69,13 +69,14 @@ function Render(muvies) {
     console.log('Render', arrayMuvies);
     let resultHtml = [];
     searchBtn.insertAdjacentHTML("afterend", '');
-    for (const muvie of arrayMuvies) {
-        resultHtml.push('<li>Title ' + muvie.title + '</li>');   
+
+    arrayMuvies.forEach(muvie => {
+        resultHtml.push('<li>Title ' + muvie.title + '</li>');
         // resultHtml.push('<img src="' + muvie.poster_path + '" alt="'+ muvie.title +'"></li>');
         resultHtml.push('<li>genre_ids ' + muvie.genre_ids + '</li>');
-        resultHtml.push('<li>vote_average ' + muvie.vote_average + '</li>');
-        
-    }
+        resultHtml.push('<li>vote_average ' + muvie.vote_average + '</li>'); 
+    });
+
     // console.log('Afrter  Render', resultHtml.join(''));
     searchBtn.insertAdjacentHTML("afterend", resultHtml.join(''));
 }

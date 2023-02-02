@@ -1,10 +1,35 @@
 console.log(' -  * test * - '); 
+const API_KEY = '50540b41e66ef631d8d57e13679f9024';
+const TRENDING_TIME = 'week';
 
 let mainBtn = document.getElementById('main_btn');
 mainBtn.addEventListener('click', Trending);
 
-const API_KEY = '50540b41e66ef631d8d57e13679f9024';
-const TRENDING_TIME = 'week';
+let searchBtn = document.getElementById('search_btn');
+searchBtn.addEventListener('click', Searh);
+
+
+function Searh() {
+    console.log('Search'); 
+
+    // const fetchMovies = async () => {
+    //     const response = await fetch('https://api.themoviedb.org/3/' ++ '?api_key=' + API_KEY);
+    //     const movies = await response.json();
+    //     return movies;
+    // };
+
+    // fetchMovies()
+    //     .then(movies => {
+    //         // console.log('f',movies.results);
+    //         localStorage.setItem('currentPageMuvie', JSON.stringify(movies.results));
+    //     })
+    //     .catch(error => console.log(error));
+
+
+
+    Render(localStorage.getItem('currentPageMuvie'));
+
+}
 
 function Trending(){
     console.log('Trending');
@@ -18,21 +43,23 @@ function Trending(){
 
     fetchMovies()
         .then(movies => {
-            // console.log(movies.results);
+            // console.log('f',movies.results);
             localStorage.setItem('currentPageMuvie', JSON.stringify(movies.results));
         })
         .catch(error => console.log(error));
     
-    function Render(m) {
-        console.log('Render',m);
-    }
+
 
     Render(localStorage.getItem('currentPageMuvie'));
 
 }
 
 
+function Render(m) {
+    console.log('Render', m);
 
+
+}
 
 
 

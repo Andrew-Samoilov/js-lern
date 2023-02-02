@@ -7,23 +7,32 @@ mainBtn.addEventListener('click', Trending);
 
 let searchBtn = document.getElementById('search_btn');
 searchBtn.addEventListener('click', Searh);
+let inputMuvie = document.getElementById('search_muvie');
 
 
 function Searh() {
+
+    // console.log(inputMuvie.value);
+    if (!inputMuvie.value) {
+        console.log('no input');
+        return;
+    }
+
     console.log('Search'); 
 
-    // const fetchMovies = async () => {
-    //     const response = await fetch('https://api.themoviedb.org/3/' ++ '?api_key=' + API_KEY);
-    //     const movies = await response.json();
-    //     return movies;
-    // };
+    const fetchMovies = async () => {
+        const response = await fetch('https://api.themoviedb.org/3/search/movie?api_key=' +
+            API_KEY + '&language=en-US&query=' + inputMuvie.value+'&page=1&include_adult=false');
+        const movies = await response.json();
+        return movies;
+    };
 
-    // fetchMovies()
-    //     .then(movies => {
-    //         // console.log('f',movies.results);
-    //         localStorage.setItem('currentPageMuvie', JSON.stringify(movies.results));
-    //     })
-    //     .catch(error => console.log(error));
+    fetchMovies()
+        .then(movies => {
+            console.log('serch f',movies.results);
+            localStorage.setItem('currentPageMuvie', JSON.stringify(movies.results));
+        })
+        .catch(error => console.log(error));
 
 
 
@@ -56,12 +65,10 @@ function Trending(){
 
 
 function Render(m) {
-    console.log('Render', m);
-
+    // console.log('Render', m);
+searchBtn.insertAdjacentHTML("afterend",m)
 
 }
-
-
 
 //https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 

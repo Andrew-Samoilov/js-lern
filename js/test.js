@@ -1,31 +1,28 @@
-const API_KEY = '50540b41e66ef631d8d57e13679f9024';
+const API_KEY = '63240915768e2fa639cf91287e69284e';
 const TRENDING_TIME = 'week';
 
-const searchBtn = document.querySelector('.search-form__button');
-searchBtn.addEventListener('click', Searh);
+Trending();
 
-const inputMovie = document.querySelector('.search-form__input');
-const movieMarkup = document.querySelector('.movie-markup');
+const formEl = document.querySelector('.search-form');
+const message = document.querySelector('.message');
+const markupContainer = document.querySelector('.movie-markup');
 
-function Searh(e) {
-    e.preventDefault();
+formEl.addEventListener('submit', Search);
 
-    // console.log(inputMovie.value);
-    if (!inputMovie.value) {
-        // console.log('no input');
+function Search(evt) {
+    evt.preventDefault();
+    let page = 1;
+    const inputValue = formEl.elements.searchQuery.value;
+    console.log(formEl.elements);
+    if (!inputValue) {
+        message.textContent =
+            'Search result not successful. Enter the correct movie name and';
         return;
     }
-    movieMarkup.innerHTML = '';
-
-    //   console.log('Search');
 
     const fetchMovies = async () => {
         const response = await fetch(
-            'https://api.themoviedb.org/3/search/movie?api_key=' +
-            API_KEY +
-            '&language=en-US&query=' +
-            inputMovie.value +
-            '&page=1&include_adult=false'
+            `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${inputValue}&page=${page}`
         );
         const movies = await response.json();
         return movies;
@@ -33,35 +30,32 @@ function Searh(e) {
 
     fetchMovies()
         .then(movies => {
-            //   console.log('serch f', movies.results);
-            localStorage.setItem('currentPageMovie', JSON.stringify(movies.results));
-        })
-        .catch(error => console.log(error));
-
-    fetchMovies()
-        .then(movies => {
-            //   console.log('serch f', movies.results);
             Render(movies.results);
+            localStorage.setItem(
+                'currentPage',
+                JSON.stringify({
+                    type: 'serched',
+                    result: movies,
+                })
+            );
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 function Trending() {
-    
-    const fetchMovies = async () => {
+    const fetchTrending = async () => {
         const response = await fetch(
-            'https://api.themoviedb.org/3/trending/all/' +
-            TRENDING_TIME +
-            '?api_key=' +
-            API_KEY
+            `https://api.themoviedb.org/3/trending/movie/${TRENDING_TIME}?api_key=${API_KEY}`
         );
         const movies = await response.json();
         return movies;
     };
 
-    fetchMovies()
+    fetchTrending()
         .then(movies => {
-            console.log('f', movies.results);
+            Render(movies.results);
             localStorage.setItem(
                 'currentPage',
                 JSON.stringify({
@@ -69,37 +63,29 @@ function Trending() {
                     result: movies,
                 })
             );
-            localStorage.setItem(
-                'currentPageMovie',
-                JSON.stringify(movies.results));
-            Render(movies.results);
         })
-        .catch(error => console.log(error));
-
-    // fetchMovies()
-    //     .then(movies => {
-    //         console.log('fee', movies.results);
-    //         Render(movies.results);
-    //     })
-    //     .catch(error => console.log(error));
+        .catch(error => {
+            console.log(error);
+        });
 }
 
-Trending();
-console.log('trending');
-localStorage.setItem('LocalStorageItem', '222');
-
 function Render(movies) {
-    const markupMovie = movies
-        .map(
-            movie =>
-                `<a class="movie__link" href=""><li class="movie__item">
-      <img class="movie__poster" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-      <p class="movie_title">${!movie.title ? movie.name : movie.title}</p>
-      <p class="movie_genre">${movie.genre_ids}</p>
-      <p class="movie_average">${movie.vote_average}</p>
-        </li></a>`
-        )
+    markupContainer.innerHTML = movies
+        .map(movie => {
+            return `
+      <a class="card__link" href="">
+    <li class="card__item">
+      <img class="card__img" src="https://image.tmdb.org/t/p/w500${movie.poster_path
+                }" alt="${movie.title}">
+      <div>
+        <p class="card__title">${movie.title}</p>
+        <div class="card__container">
+        <p class="card__genres">${movie.genre_ids} | </p>
+        <p class="card__year"> ${parseInt(movie.release_date)}</p>
+        </div>
+      </div>
+    </li>
+    </a>`;
+        })
         .join('');
-
-    movieMarkup.insertAdjacentHTML('beforeend', markupMovie);
 }

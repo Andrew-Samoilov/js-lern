@@ -62,8 +62,16 @@ function Trending() {
     fetchMovies()
         .then(movies => {
             console.log('f', movies.results);
-          
-            localStorage.setItem('currentPageMovie', JSON.stringify(movies.results));
+            localStorage.setItem(
+                'currentPage',
+                JSON.stringify({
+                    type: 'trending',
+                    result: movies,
+                })
+            );
+            localStorage.setItem(
+                'currentPageMovie',
+                JSON.stringify(movies.results));
             Render(movies.results);
         })
         .catch(error => console.log(error));

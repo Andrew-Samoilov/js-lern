@@ -2,12 +2,12 @@ console.log(' -  * test * - ');
 const API_KEY = '50540b41e66ef631d8d57e13679f9024';
 const TRENDING_TIME = 'week';
 
-let mainBtn = document.getElementById('main_btn');
+const mainBtn = document.getElementById('main_btn');// кнопка в трендінг
 mainBtn.addEventListener('click', Trending);
 
-let searchBtn = document.getElementById('search_btn');
+const searchBtn = document.getElementById('search_btn');// кнопка в пошуку
 searchBtn.addEventListener('click', Searh);
-let inputMuvie = document.getElementById('search_movie');
+const inputMuvie = document.getElementById('search_movie');// інпут
 
 
 function Searh() {
@@ -71,10 +71,21 @@ function Render(muvies) {
     searchBtn.insertAdjacentHTML("afterend", '');
 
     arrayMuvies.forEach(muvie => {
-        resultHtml.push('<li>Title ' + muvie.title + '</li>');
-        // resultHtml.push('<img src="' + muvie.poster_path + '" alt="'+ muvie.title +'"></li>');
+        // if (!muvie.title) {
+        //     muvie.
+        // }
+        if (!muvie.title) {
+            resultHtml.push('<li>Title ' + muvie.title + '</li>'); 
+        } else {
+            resultHtml.push('<li>Title ' + muvie.title + '</li>'); 
+        }
+        // resultHtml.push('<li>Title ' + muvie.title + '</li>');
+        // https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
+        // resultHtml.push('<li>muvie.poster_path ' + muvie.poster_path + '</li>');
+        resultHtml.push('<img src=https://image.tmdb.org/t/p/w500'+muvie.poster_path+'>');
         resultHtml.push('<li>genre_ids ' + muvie.genre_ids + '</li>');
         resultHtml.push('<li>vote_average ' + muvie.vote_average + '</li>'); 
+
     });
 
     // console.log('Afrter  Render', resultHtml.join(''));

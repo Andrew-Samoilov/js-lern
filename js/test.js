@@ -75,10 +75,10 @@ function Render(movies) {
             return `
       <a class="card__link" href="">
     <li class="card__item">
-      <img class="card__img" src="https://image.tmdb.org/t/p/w500${movie.poster_path
+      <img class="card__img" src="https://image.tmdb.org/t/p/w500${!movie.poster_path ? '\images\no-image.jpg' : movie.poster_path
                 }" alt="${movie.title}">
       <div>
-        <p class="card__title">${movie.title}</p>
+        <p class="card__title">${!movie.title ? movie.name : movie.title}</p>
         <div class="card__container">
         <p class="card__genres">${movie.genre_ids} | </p>
         <p class="card__year"> ${parseInt(movie.release_date)}</p>
@@ -89,3 +89,31 @@ function Render(movies) {
         })
         .join('');
 }
+
+// https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
+function Genres() {
+
+    const fetchGenres = async () => {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
+        );
+        const genres = await response.json();
+        return genres;
+    };
+
+    fetchGenres()
+        .then(genres => {
+            Render(genres.results);
+            localStorage.setItem(
+                'currentPage',
+                JSON.stringify({
+                    type: 'genres',
+                    result: genres,
+                })
+            );
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+Genres();

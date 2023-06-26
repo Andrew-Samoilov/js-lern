@@ -5,65 +5,81 @@ function central_pixels(img, colour) {
     let maxAttention = 0;
     let pixels = img.pixels;
 
-function drawImage(image = Image) {
-    console.log(`function drawImage. W=${image.width}, H=${image.height}, colour = ${colour}.`);
-    let tmpRes = [];
-    let numberOfHeightLine = 1;
-    for (let i = 1; i <= image.pixels.length; i++) {
-        tmpRes.push(image.pixels[i - 1]);
-        // console.log(`i% i.width ${i% i.width}` );
-        if (i % image.width === 0) {
-            console.log(`${numberOfHeightLine++}`, tmpRes);
-            tmpRes = [];
+    function drawImage(image = Image) {
+        console.log(`function drawImage. W=${image.width}, H=${image.height}, colour = ${colour}.`);
+        let tmpRes = [];
+        let numberOfHeightLine = 1;
+        for (let i = 1; i <= image.pixels.length; i++) {
+            tmpRes.push(image.pixels[i - 1]);
+            // console.log(`i% i.width ${i% i.width}` );
+            if (i % image.width === 0) {
+                console.log(`${numberOfHeightLine++}`, tmpRes);
+                tmpRes = [];
+            }
         }
-    }
     }
     
 drawImage(img);
 
-    function pixAtt(coord) { // функція для визначення глибини пікселя
-        // console.log('coord',coord);
+function pixAtt(coord) { // функція для визначення глибини пікселя
+    // console.log('coord',coord);
     let pixelDeep = 0;
-        for (let j = coord; j <= pixels.length; j += 1) {
-            // console.log(`j`, j);
+
+    // top border
+    if (coord - img.width < 0) {
+        pixelDeep = 1;
+        console.log(coord, `top border`);
+        return pixelDeep;
+    }
+    // right border
+    if ((coord + 1) % img.width === 0) {
+        pixelDeep = 1;
+        console.log(coord, 'right border');
+        return pixelDeep;
+    }
+    //left border
+    if ((coord + img.height) % img.height === 1) {
+        pixelDeep = 1;
+        console.log(coord, 'left border');
+        return pixelDeep;
+    }
+    // bottom border
+    if ((coord + img.width) >= pixels.length) {
+        pixelDeep = 1;
+        console.log(coord, 'bottom border');
+        return pixelDeep;
+    }
+
+
+    for (let j = 0; j <= pixels.length; j ++) {
+        // console.log(`j`, j);
         /* дивимся по сторонам, циклом змінємо довжину погляду,
-            до pixels.length не дійдемо, просте обмеження */
-        
-            // top border
-            if (j - img.width < 0) {
-                pixelDeep = 1;
-                console.log(coord, `coord, top border, j=`, j,`, j-img.width= ${j - img.width}, pixelDeep= `, pixelDeep);      
-                return pixelDeep;
-            }
-            // right border
-            if ((coord + 1) % img.width === 0) {
-                pixelDeep = 1;
-                console.log(coord,' right border');
-                return pixelDeep;
-            }                
-            //left border
-            if ((coord + 10) % 10 === 1) {
-                pixelDeep = 1;
-                console.log(coord, 'coord, left border');
-                return pixelDeep;
-            }
-            // next color != color
-            if (img.pixels[j] != colour) {
-                pixelDeep = 1;
-                console.log(coord,' Another color', img.pixels[j], ', pixelDeep ', pixelDeep,'j=',j); 
-                return pixelDeep;
-            }   
-            
-            
-            // bottom border
-            if ((j + img.width) >= pixels.length) {
-                pixelDeep += 1;
-                console.log(coord,'coord, bottom border, j =', j, 'j+img.width = ', j+img.width);
-                return pixelDeep;
-            }
-        
+        до pixels.length не дійдемо, просте обмеження */
+    
+        // next color != color
+        // if (img.pixels[coord] != colour) {
+        //     pixelDeep = 1;
+        //     console.log(coord, ' Another color', img.pixels[j], ', pixelDeep ', pixelDeep, 'j=', j);
+        //     return pixelDeep;
+        // } 
 
         
+        //look top
+        console.log(`coord - j * img.width=${coord - j * img.width}`);
+        if (img.pixels[coord - j * img.width] === colour) {
+            console.log(`j`, j);
+            pixelDeep++;
+            console.log(`${coord} Same color, j= ${j}, pixelDeep= ${pixelDeep} `);
+        }
+
+        //look bottom
+        console.log(`coord + j * img.width=${coord + j * img.width}`);
+        if (img.pixels[coord + j * img.width] === colour) {
+            console.log(`j`, j);
+            pixelDeep++;
+            console.log(`${coord} Same color, j= ${j}, pixelDeep= ${pixelDeep} `);
+        }
+      
     }
     return pixelDeep;
 }
@@ -78,6 +94,7 @@ drawImage(img);
             // console.log(` pixels[${i}] = colour| ${colour}  pixAtt(${i}) ${pixAtt(i)} `);
             if (pixAtt(i) > maxAttention) {      
                 result.push(i); //додаємо в результат індекс масива
+                // console.log(pixAtt(i));
             }
             
             // maxAttention++;
@@ -266,8 +283,8 @@ for (let j = 0; j < pixels.length; j++) {
     }
 }*/
 
-console.log(` - * Worked test * -`);
+// console.log(` - * Worked test * -`);
 // зробив щоб при відсутності кольору писало повідомлення
-imag = picture5;
-console.log(central_pixels(imag, 2), `!!There are no pixels with colour 2`);
+// imag = picture5;
+// console.log(central_pixels(imag, 2), `!!There are no pixels with colour 2`);
     

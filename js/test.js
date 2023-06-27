@@ -1,1 +1,1 @@
-console.log(" -  * CodeWars * * - ");
+console.log(" -  * CodeWars * - ");

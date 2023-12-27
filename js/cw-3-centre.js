@@ -1,4 +1,4 @@
-console.log(' -  * CodeWars ** 3 kuy * Centre of attention * - ');
+console.log(' -  * CodeWars *** 3 kuy * Centre of attention * - ');
 
 function central_pixels(img, colour) {
     let result = [];
@@ -21,79 +21,86 @@ function central_pixels(img, colour) {
 
     drawImage(img);
 
-    function pixAtt(coord) { // функція для визначення глибини пікселя
-        // console.log('coord',coord);
-        let pixelDeep = 0;
+    function calculatePixelDepth(coordinte) {
+        // console.log('coordinte', coordinte);
+        let pixelDepth = 0;
+        const TOP_BORDER = (coordinte - img.width) < 0;
+        const RIGHT_BORDER = (coordinte + 1) % img.width === 0;
+        const LEFT_BORDER = (coordinte + img.width) % img.width === 0;
+        const BOTTOM_BORDER = (coordinte + img.width) >= pixels.length;
 
-        // top border
-        if ((coord - img.width) < 0) {
-            pixelDeep = 1;
-            console.log(coord, `top border`);
-            return pixelDeep;
-        }
-        // right border
-        if ((coord + 1) % img.width === 0) {
-            pixelDeep = 1;
-            console.log(coord, 'right border');
-            return pixelDeep;
-        }
-        //left border
-        if ((coord + img.width) % img.width === 0) {
-            pixelDeep = 1;
-            console.log(coord, 'left border');
-            return pixelDeep;
-        }
-        // bottom border
-        if ((coord + img.width) >= pixels.length) {
-            pixelDeep = 1;
-            console.log(coord, 'bottom border');
-            return pixelDeep;
+        if (TOP_BORDER) {
+            pixelDepth = 1;
+            console.log(coordinte, `top border`);
+            return pixelDepth;
         }
 
-        // for (let j = 0; j <= pixels.length; j++) {
-        //     // console.log(`j`, j);
-        //     /* дивимся по сторонам, циклом змінємо довжину погляду,
-        //     до pixels.length не дійдемо, просте обмеження */
+        if (RIGHT_BORDER) {
+            pixelDepth = 1;
+            console.log(coordinte, 'right border');
+            return pixelDepth;
+        }
 
-        //     // next color != color
-        //     // if (img.pixels[coord] != colour) {
-        //     //     pixelDeep = 1;
-        //     //     console.log(coord, ' Another color', img.pixels[j], ', pixelDeep ', pixelDeep, 'j=', j);
-        //     //     return pixelDeep;
-        //     // } 
+        if (LEFT_BORDER) {
+            pixelDepth = 1;
+            console.log(coordinte, 'left border');
+            return pixelDepth;
+        }
 
+        if (BOTTOM_BORDER) {
+            pixelDepth = 1;
+            console.log(coordinte, 'bottom border');
+            return pixelDepth;
+        }
 
-        //     //look top
-        //     // console.log(`coord - j * img.width=${coord - j * img.width}`);
-        //     if (img.pixels[coord - j * img.width] === colour) {
-        //         console.log(`j`, j);
-        //         pixelDeep++;
-        //         console.log(`${coord} Same color, j= ${j}, pixelDeep= ${pixelDeep} `);
-        //     }
+        let lookTop = 0;
+        let lookBottom = 0;
+        for (let step = 1; step <= pixels.length; step++) {
 
-        //     //look bottom
-        //     // console.log(`coord + j * img.width=${coord + j * img.width}`);
-        //     if (img.pixels[coord + j * img.width] === colour) {
-        //         console.log(`j`, j);
-        //         pixelDeep++;
-        //         console.log(`${coord} Same color, j= ${j}, pixelDeep= ${pixelDeep} `);
-        //     }
+            // console.log(`step`, step);
+            /* дивимся по сторонам, циклом змінємо довжину погляду,
+            до pixels.length не дійдемо, просте обмеження */
 
-        // }
-        return pixelDeep;
+            //look top
+            if (img.pixels[coordinte - step * img.width] === colour) {
+                lookTop = step;
+                // console.log(coordinte,`Look top. Same color, step= ${step}, pixelDepth= ${pixelDepth}`);
+            } 
+            //look bottom
+            // console.log(`coordinte + step * img.width=${coordinte + step * img.width}`);
+            if (img.pixels[coordinte + step * img.width] === colour) {
+                lookBottom = step;
+                // console.log(coordinte ,`Look bottom. Same color, step= ${step}, pixelDepth= ${pixelDepth} `);
+            }
+
+            if (lookTop < step && lookTop < lookBottom) {
+                console.log(coordinte, `lookTop < step`, lookTop, step, `lookBottom`, lookBottom);
+                pixelDepth = lookTop;
+                break
+            }
+            // console.log(`step`,step,`lookTop`, lookTop, `lookBottom`, lookBottom);
+        }
+
+        return pixelDepth;
     }
 
-    // Основний цикл, проходимося по пикселям
+    // Main loop, looking all pixels
     for (let i = 0; i < pixels.length; i++) {
         // console.log(`pixels[${i}] ${pixels[i]}`);
 
         // cпівпадає з тим, шо шукаємо, робимо
         if (pixels[i] === colour) {
-            // console.log(` Main for, coord`,i);
-            // console.log(` pixels[${i}] = colour| ${colour}  pixAtt(${i}) ${pixAtt(i)} `);
-            if (pixAtt(i) > maxAttention) {
+            let currentPixelDeep = calculatePixelDepth(i);
+            
+            if (currentPixelDeep > maxAttention) {
+                // console.log(` pixels[${i}]= ${colour} currentPixelDeep ${currentPixelDeep}, maxAttention = ${maxAttention}`);
+                result.length = 0;
                 result.push(i); //додаємо в результат індекс масива
-                // console.log(pixAtt(i));
+                console.log('currentPixelDeep > maxAttention)', currentPixelDeep, maxAttention);
+                maxAttention = currentPixelDeep;
+            } else if (currentPixelDeep === maxAttention) {
+                console.log('currentPixelDeep === maxAttention)', currentPixelDeep, maxAttention);
+                result.push(i); //додаємо в результат індекс масива
             }
 
             // maxAttention++;
@@ -101,10 +108,8 @@ function central_pixels(img, colour) {
         }
 
     }
-    // drawImage(pixels);
-    console.log(...result);
+
     if (!result.length) {
-        // console.log(`!!!`);
         return `!! There are no pixels with colour ` + colour;
     }
     // return Math.max(...result);
@@ -202,85 +207,6 @@ console.log(central_pixels(imag, 1), `-`);
 // image.pixels[32] = 3;
 // let new_ctr = [ 11,21,41,43 ];
 // console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
-
-/* look left
-if (img.pixels[i - 1] === undefined || pixels[i - 1] === 0) {
-    console.log(`- 1[${i - 1}]=u`);
-    pixels[i] = 1;
-}
-// look right
-if (img.pixels[i + 1] === undefined || pixels[i + 1] === 0) {
-    console.log(`+ 1[${i + 1}]=u`);
-    pixels[i] = 1;
-}
-// look top
-if (img.pixels[i - img.width] === undefined || pixels[i - img.width] === 0) {
-    console.log(`img.pixels[${i} - ${img.width}] ${img.pixels[i - img.width]}`);
-    pixels[i] = 1;
-}
-// look down
-if (img.pixels[i + img.width] === undefined || pixels[i + img.width] === 0) {
-    console.log(`img.pixels[${i} + ${img.width}] ${img.pixels[i + img.width]}`);
-    pixels[i] = 1;*/
-
-/*    старий варіант умов (з 1 )
-
-if (img.pixels[i] === colour) {
-
-    if (
-        img.pixels[i - 1] === undefined || //left
-        pixels[i - 1] === 0 ||
-        img.pixels[i + 1] === undefined || //right
-        pixels[i + 1] === 0 ||
-        img.pixels[i + 1] != colour ||
-        img.pixels[i - img.width] === undefined || //top
-        pixels[i - img.width] === 0 ||
-        img.pixels[i + img.width] === undefined || //bottom
-        img.pixels[i + img.width] != colour ||
-        pixels[i + img.width] === 0
-    ) {
-        pixels[i] = 1;
-    }
-
-
-} else {
-    pixels[i] = 0;
-}*/
-/*
-for (let j = 0; j < pixels.length; j++) {
-    /* дивимся по сторонам, циклом змінємо довжину погляду,
-               до pixels.length не дійдемо, просте обмеження
-    if (
-        pixels[i - j] === undefined || //left
-        pixels[i - j] === 0 ||
-        pixels[i - j] != colour ||
-        pixels[i + j] === undefined || //right
-        pixels[i + j] === 0 ||
-        pixels[i + j] != colour ||
-        pixels[i - img.width * j] === undefined || //top
-        pixels[i - img.width * j] === 0 ||
-        pixels[i - img.width * j] != colour ||
-        pixels[i + img.width * j] === undefined || //bottom
-        pixels[i + img.width * j] === 0 ||
-        pixels[i + img.width * j] != colour
-    ) {
-        pixels[i] = j;
-
-        if (maxAttention < j) {
-            maxAttention = j;
-            res = [];
-            res.push(i);
-            console.log(`!new maxAttention(${maxAttention}) < j${j}  i=${i}`);
-            console.log(...res);
-        } else if (maxAttention === j) {
-            res.push(i);
-            console.log(` MaxAtt(${maxAttention}) === j${j}`);
-            console.log(...res);
-        }
-
-        break;
-    }
-}*/
 
 // console.log(` - * Worked test * -`);
 // зробив щоб при відсутності кольору писало повідомлення

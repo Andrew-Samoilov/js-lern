@@ -1,20 +1,26 @@
 console.log(' -  * CodeWars *** 3 kuy * Centre of attention * - ');
 
+class Image {
+    constructor(data, w, h) {
+        this.pixels = data.slice();
+        this.width = w;
+        this.height = h;
+    }
+}
+
 function central_pixels(img, colour) {
     let result = [];
     let maxAttention = 0;
-    let pixels = img.pixels;
 
     function drawImage(image = Image) {
         console.log(`function drawImage. W=${image.width}, H=${image.height}, colour = ${colour}.`);
-        let tmpRes = [];
-        let numberOfHeightLine = 1;
+        let lineOfPixel = [];
         for (let index = 1; index <= image.pixels.length; index++) {
-            tmpRes.push(image.pixels[index - 1]);
+            lineOfPixel.push(image.pixels[index - 1]);
             // console.log(`index% index.width ${index% index.width}` );
             if (index % image.width === 0) {
-                console.log(`${numberOfHeightLine++}`, tmpRes);
-                tmpRes = [];
+                console.log(index / img.width, lineOfPixel);
+                lineOfPixel = [];
             }
         }
     }
@@ -27,7 +33,7 @@ function central_pixels(img, colour) {
         const TOP_BORDER = (coordinte - img.width) < 0;
         const RIGHT_BORDER = (coordinte + 1) % img.width === 0;
         const LEFT_BORDER = (coordinte + img.width) % img.width === 0;
-        const BOTTOM_BORDER = (coordinte + img.width) >= pixels.length;
+        const BOTTOM_BORDER = (coordinte + img.width) >= img.pixels.length;
 
         if (TOP_BORDER) {
             pixelDepth = 1;
@@ -53,58 +59,66 @@ function central_pixels(img, colour) {
             return pixelDepth;
         }
 
-        let lookTop = 0;
-        let lookBottom = 0;
-        for (let step = 1; step <= pixels.length; step++) {
+        let scanTop = 1;
+        let scanBottom = 1;
+        let scanLeft = 1;
+        let scanRight = 1;
+        const MAX_SCAN_DISTANCE = Math.max(img.width, img.height);
 
-            // console.log(`step`, step);
+        for (let scanDistance = 1; scanDistance <= MAX_SCAN_DISTANCE+1; scanDistance++) {
+
+            // console.log(`scanDistance`, scanDistance);
             /* дивимся по сторонам, циклом змінємо довжину погляду,
-            до pixels.length не дійдемо, просте обмеження */
+            до img.pixels.length не дійдемо, просте обмеження */
 
             //look top
-            if (img.pixels[coordinte - step * img.width] === colour) {
-                lookTop = step;
-                // console.log(coordinte,`Look top. Same color, step= ${step}, pixelDepth= ${pixelDepth}`);
+            if (img.pixels[coordinte - scanDistance * img.width] === colour) {
+                scanTop = scanDistance;
+                // console.log(coordinte,`Look top. Same color, scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
             }
             //look bottom
-            // console.log(`coordinte + step * img.width=${coordinte + step * img.width}`);
-            if (img.pixels[coordinte + step * img.width] === colour) {
-                lookBottom = step;
-                // console.log(coordinte ,`Look bottom. Same color, step= ${step}, pixelDepth= ${pixelDepth} `);
+            // console.log(`coordinte + scanDistance * img.width=${coordinte + scanDistance * img.width}`);
+            if (img.pixels[coordinte + scanDistance * img.width] === colour) {
+                scanBottom = scanDistance;
+                // console.log(coordinte ,`Look bottom. Same color, scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth} `);
             }
 
-            if (lookTop < step && lookTop < lookBottom) {
-                console.log(coordinte, `lookTop < step`, lookTop, step, `lookBottom`, lookBottom);
-                pixelDepth = lookTop;
-                break
+            //look left
+            if (img.pixels[coordinte - scanDistance] === colour) {
+                scanLeft = scanDistance;
+                // console.log(coordinte, `Look left. scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
             }
-            // console.log(`step`,step,`lookTop`, lookTop, `lookBottom`, lookBottom);
+
+            //look right
+            if (img.pixels[coordinte + scanDistance] === colour) {
+                scanRight = scanDistance;
+                // console.log(coordinte, `Look right. scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
+            }
+
         }
 
-        return pixelDepth;
+        console.log(`!!`, coordinte, scanTop, scanBottom, scanLeft, scanRight, 'MaxDep', Math.min(scanTop, scanBottom, scanLeft, scanRight));
+        return Math.min(scanTop, scanBottom, scanLeft, scanRight);;
     }
 
     // Main loop, looking all pixels
-    for (let index = 0; index < pixels.length; index++) {
-        // console.log(`pixels[${index}] ${pixels[index]}`);
+    for (let index = 0; index < img.pixels.length; index++) {
+        // console.log(`img.pixels[${index}] ${img.pixels[index]}`);
 
         // cпівпадає з тим, шо шукаємо, робимо
-        if (pixels[index] === colour) {
-            let currentPixelDeep = calculatePixelDepth(index);
+        if (img.pixels[index] === colour) {
+            const CURRENT_PIXEL_DEEP = calculatePixelDepth(index);
 
-            if (currentPixelDeep > maxAttention) {
-                // console.log(` pixels[${index}]= ${colour} currentPixelDeep ${currentPixelDeep}, maxAttention = ${maxAttention}`);
+            if (CURRENT_PIXEL_DEEP > maxAttention) {
+                // console.log(`CURRENT_PIXEL_DEEP > maxAttention) img.pixels[${index}]= ${colour} CURRENT_PIXEL_DEEP ${CURRENT_PIXEL_DEEP}, maxAttention = ${maxAttention}`);
                 result.length = 0;
                 result.push(index); //додаємо в результат індекс масива
-                console.log('currentPixelDeep > maxAttention)', currentPixelDeep, maxAttention);
-                maxAttention = currentPixelDeep;
-            } else if (currentPixelDeep === maxAttention) {
-                console.log('currentPixelDeep === maxAttention)', currentPixelDeep, maxAttention);
+                // console.log('CURRENT_PIXEL_DEEP > maxAttention)', CURRENT_PIXEL_DEEP, maxAttention);
+                maxAttention = CURRENT_PIXEL_DEEP;
+            } else if (CURRENT_PIXEL_DEEP === maxAttention) {
+                // console.log('CURRENT_PIXEL_DEEP = maxAttention', CURRENT_PIXEL_DEEP, maxAttention);
                 result.push(index); //додаємо в результат індекс масива
             }
-
-            // maxAttention++;
-            // console.log('maxAttention', maxAttention);
         }
 
     }
@@ -112,80 +126,75 @@ function central_pixels(img, colour) {
     if (!result.length) {
         return `!! There are no pixels with colour ` + colour;
     }
-    // return Math.max(...result);
+    console.log(result);
     return result;
 }
 
-class Image {
-    constructor(data, w, h) {
-        this.pixels = data.slice();
-        this.width = w;
-        this.height = h;
-    }
-}
+
 
 let ascending = (a, b) => a - b;
 
 let picture = new Image(
     [1, 1, 4, 4, 4, 4, 2, 2, 2, 2, // prettier-ignore
-     1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
-     1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
-     1, 1, 1, 1, 1, 3, 2, 2, 2, 2,
-     1, 1, 1, 1, 1, 3, 3, 3, 2, 2,
-     1, 1, 1, 1, 1, 1, 3, 3, 3, 3], 10, 6);
+        1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 3, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 3, 3, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 3, 3, 3, 3], 10, 6);
 let imag;
 let picture2 = new Image(
     [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, // prettier-ignore
-     1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
-     1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
-     1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
-     1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
-     1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
-     1, 1, 1, 1, 1, 1, 1, 3, 3, 3], 10, 7);
+        1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
+        1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 3, 3, 3], 10, 7);
 let picture4 = new Image(// prettier-ignore
     [5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 7, 7, 6, 6, 6, 6, 6, 6, 7, 7, 6, 6, 6, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 6, 6,
-     7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
-     7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
-     7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
-     7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 7, 7, 5, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5,
-     7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 7, 7, 5, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
-     7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
-     7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
-     7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
-     6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 7, 7, 5, 5, 6, 6, 6, 6, 6, 7, 7, 5, 5, 6, 6, 5, 5, 5, 5,
-     6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 7, 7, 5, 5, 6, 6, 6, 6, 6, 7, 7, 5, 5, 6, 6, 5, 5, 5, 5,
-     5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 5, 5, 7, 7, 7, 5, 5, 7, 7, 6, 6, 5, 5, 6, 6, 6, 6,
-     5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5,
-     5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5,
-     5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
-     5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
-     7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 6, 6, 7, 7, 7, 7,
-     7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 6, 6, 7, 7, 7, 7], 29, 27);
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 7, 7, 6, 6, 6, 6, 6, 6, 7, 7, 6, 6, 6, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 6, 6,
+        7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
+        7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
+        7, 7, 7, 7, 6, 6, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 5, 5, 6, 6, 6, 6,
+        7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 7, 7, 5, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5,
+        7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 7, 7, 5, 5, 5, 5, 5, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 6, 6, 5, 5, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
+        7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
+        7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7,
+        6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 7, 7, 5, 5, 6, 6, 6, 6, 6, 7, 7, 5, 5, 6, 6, 5, 5, 5, 5,
+        6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 7, 7, 5, 5, 6, 6, 6, 6, 6, 7, 7, 5, 5, 6, 6, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 5, 5, 7, 7, 7, 5, 5, 7, 7, 6, 6, 5, 5, 6, 6, 6, 6,
+        5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 7, 7, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
+        5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 6, 6, 7, 7, 7, 7,
+        7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 7, 6, 6, 7, 7, 7, 7], 29, 27);
 
 let picture5 = new Image(// prettier-ignore
     [8, 8,
-     7, 8], 2, 2);
+        7, 8], 2, 2);
 
-imag = picture;
-console.log(central_pixels(imag, 1), `-`);
+// imag = picture;
+// console.log(central_pixels(imag, 1), `-`);
 
 
 // imag = picture2;
 // console.log(central_pixels(imag, 1), `!&?`);
 
 // Only one red pixel has the maximum depth of 3:
-// let red_ctr = [32];
-// console.log(central_pixels(red_ctr, 1), red_ctr);
+imag = picture;
+let red_ctr = [32];
+console.log(central_pixels(imag, 1), red_ctr);
 
 // // Multiple blue pixels have the maximum depth of 2:
 // let blue_ctr = [16, 17, 18, 26, 27, 28, 38];

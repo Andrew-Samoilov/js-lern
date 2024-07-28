@@ -1,4 +1,4 @@
-console.log(' -  * CodeWars *** 3 kuy * Centre of attention * - ');
+console.log(' -  * CodeWars * 3 kuy * Centre of attention * - ');
 
 class Image {
     constructor(data, w, h) {
@@ -13,11 +13,10 @@ function central_pixels(img, colour) {
     let maxAttention = 0;
 
     function drawImage(image = Image) {
-        console.log(`function drawImage. W = ${image.width}, H = ${image.height}, colour = ${colour}.`);
+        console.log(`function drawImage. W = ${image.width}, H = ${image.height}, colour = ${colour}`);
         let lineOfPixel = [];
         for (let index = 1; index <= image.pixels.length; index++) {
             lineOfPixel.push(image.pixels[index - 1]);
-            // console.log(`index% index.width ${index% index.width}` );
             if (index % image.width === 0) {
                 console.log(index / img.width, lineOfPixel);
                 lineOfPixel = [];
@@ -35,29 +34,27 @@ function central_pixels(img, colour) {
         const LEFT_BORDER = (coordinte + img.width) % img.width === 0;
         const BOTTOM_BORDER = (coordinte + img.width) >= img.pixels.length;
 
-        if (TOP_BORDER) {
-            pixelDepth = 1;
-            // console.log(coordinte, `top border`);
-            return pixelDepth;
-        }
+        if (TOP_BORDER || RIGHT_BORDER || LEFT_BORDER || BOTTOM_BORDER) return pixelDepth;
+        
+        // if (TOP_BORDER) {
+        //     // console.log(coordinte, `top border`);
+        //     return pixelDepth;
+        // }
 
-        if (RIGHT_BORDER) {
-            pixelDepth = 1;
-            // console.log(coordinte, 'right border');
-            // return pixelDepth;
-        }
+        // if (RIGHT_BORDER) {
+        //     // console.log(coordinte, 'right border');
+        //     return pixelDepth;
+        // }
 
-        if (LEFT_BORDER) {
-            pixelDepth = 1;
-            // console.log(coordinte, 'left border');
-            return pixelDepth;
-        }
+        // if (LEFT_BORDER) {
+        //     // console.log(coordinte, 'left border');
+        //     return pixelDepth;
+        // }
 
-        if (BOTTOM_BORDER) {
-            pixelDepth = 1;
-            // console.log(coordinte, 'bottom border');
-            return pixelDepth;
-        }
+        // if (BOTTOM_BORDER) {
+        //     // console.log(coordinte, 'bottom border');
+        //     return pixelDepth;
+        // }
 
         let scanTop = 1;
         let scanBottom = 1;
@@ -85,7 +82,7 @@ function central_pixels(img, colour) {
                 scanLeft = scanDistance + 1;
                 // console.log(coordinte, `Scan left. scanDistance= ${scanDistance}, pixelDepth = ${pixelDepth}`);
             }
-            //!!!!scan right не ловить дірки. треба все переводити на флаги - scanRight=true
+            //!!!!scan right не ловить дірки. треба переводити на флаги - scanRight=true
             if (img.pixels[coordinte + scanDistance] === colour && scanDistance < (img.width-(coordinte % img.width))) {
                 scanRight = scanDistance + 1;
                 console.log(coordinte, `scan right. scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
@@ -96,6 +93,7 @@ function central_pixels(img, colour) {
         console.log(`!!`, coordinte, scanTop, scanBottom, scanLeft, scanRight, 'MaxDeep', Math.min(scanTop, scanBottom, scanLeft, scanRight));
         return Math.min(scanTop, scanBottom, scanLeft, scanRight);;
     }
+
 
     // Main loop, looking all pixels
     for (let index = 0; index < img.pixels.length; index++) {

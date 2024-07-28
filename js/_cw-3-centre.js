@@ -1,4 +1,4 @@
-console.log(' -  * CodeWars * 3 kuy * Centre of attention * - ');
+console.log(' -  * CodeWars * 3 kuy * Centre of attention * -');
 
 class Image {
     constructor(data, w, h) {
@@ -9,22 +9,23 @@ class Image {
 }
 
 function central_pixels(img, colour) {
+    let counter = 0;
     let result = [];
     let maxAttention = 0;
 
-    function drawImage(image = Image) {
-        console.log(`function drawImage. W = ${image.width}, H = ${image.height}, colour = ${colour}`);
-        let lineOfPixel = [];
-        for (let index = 1; index <= image.pixels.length; index++) {
-            lineOfPixel.push(image.pixels[index - 1]);
-            if (index % image.width === 0) {
-                console.log(index / img.width, lineOfPixel);
-                lineOfPixel = [];
-            }
-        }
-    }
+    // function drawImage(image = Image) {
+    //     console.log(`Function drawImage. W = ${image.width}, H = ${image.height}, colour = ${colour}`);
+    //     let lineOfPixel = [];
+    //     for (let index = 1; index <= image.pixels.length; index++) {
+    //         lineOfPixel.push(image.pixels[index - 1]);
+    //         if (index % image.width === 0) {
+    //             console.log(index / img.width, lineOfPixel);
+    //             lineOfPixel = [];
+    //         }
+    //     }
+    // }
 
-    drawImage(img);
+    // drawImage(img);
 
     function calculatePixelDepth(coordinte) {
         // console.log('coordinte', coordinte);
@@ -35,7 +36,7 @@ function central_pixels(img, colour) {
         const BOTTOM_BORDER = (coordinte + img.width) >= img.pixels.length;
 
         if (TOP_BORDER || RIGHT_BORDER || LEFT_BORDER || BOTTOM_BORDER) return pixelDepth;
-        
+
         // if (TOP_BORDER) {
         //     // console.log(coordinte, `top border`);
         //     return pixelDepth;
@@ -61,36 +62,53 @@ function central_pixels(img, colour) {
         let scanLeft = 1;
         let scanRight = 1;
         const MAX_SCAN_DISTANCE = Math.max(img.width, img.height);
+        let onScan = true;
 
+
+        // while (onScan) {
+        //     let scanDistance = 1;
+        // // }
         for (let scanDistance = 1; scanDistance <= MAX_SCAN_DISTANCE + 1; scanDistance++) {
-
+            counter++;
             // console.log(`scanDistance`, scanDistance);
             /* скануємо по сторонам, циклом змінємо довжину сканування */
 
             //scan top
-            if (img.pixels[coordinte - scanDistance * img.width] === colour) {
+            if (onScan && img.pixels[coordinte - scanDistance * img.width] === colour) {
                 scanTop = scanDistance + 1;
                 // console.log(coordinte,`scan top. Same color, scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
+            } else {
+                onScan = false;
             }
             //scan bottom
-            if (img.pixels[coordinte + scanDistance * img.width] === colour) {
+            if (onScan && img.pixels[coordinte + scanDistance * img.width] === colour) {
                 scanBottom = scanDistance + 1;
                 // console.log(coordinte ,`scan bottom. Same color, scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth} `);
+            } else {
+                onScan = false;
             }
             //scan left
-            if (img.pixels[coordinte - scanDistance] === colour && scanDistance <= (coordinte%img.width)) {
+            if (onScan && img.pixels[coordinte - scanDistance] === colour && scanDistance <= (coordinte % img.width)) {
                 scanLeft = scanDistance + 1;
                 // console.log(coordinte, `Scan left. scanDistance= ${scanDistance}, pixelDepth = ${pixelDepth}`);
+            } else {
+                onScan = false;
+                // console.info(`left`, coordinte, onScan);
+                // break;
             }
-            //!!!!scan right не ловить дірки. треба переводити на флаги - scanRight=true
-            if (img.pixels[coordinte + scanDistance] === colour && scanDistance < (img.width-(coordinte % img.width))) {
+            //!!!!scan right
+            if (onScan && img.pixels[coordinte + scanDistance] === colour && scanDistance < (img.width - (coordinte % img.width))) {
                 scanRight = scanDistance + 1;
-                console.log(coordinte, `scan right. scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
+                // console.log(coordinte, `scan right. scanDistance= ${scanDistance}, pixelDepth= ${pixelDepth}`);
+            } else {
+                onScan = false;
+                // console.info(`right`, coordinte, onScan);
+                // break;
             }
 
         }
 
-        console.log(`!!`, coordinte, scanTop, scanBottom, scanLeft, scanRight, 'MaxDeep', Math.min(scanTop, scanBottom, scanLeft, scanRight));
+        console.log(`!!`, coordinte, scanTop, scanBottom, scanLeft, scanRight, 'Deep', Math.min(scanTop, scanBottom, scanLeft, scanRight));
         return Math.min(scanTop, scanBottom, scanLeft, scanRight);;
     }
 
@@ -98,7 +116,7 @@ function central_pixels(img, colour) {
     // Main loop, looking all pixels
     for (let index = 0; index < img.pixels.length; index++) {
         // console.log(`img.pixels[${index}] ${img.pixels[index]}`);
-
+        counter++;
         // cпівпадає з тим, шо шукаємо, робимо
         if (img.pixels[index] === colour) {
             const CURRENT_PIXEL_DEEP = calculatePixelDepth(index);
@@ -116,6 +134,7 @@ function central_pixels(img, colour) {
         }
 
     }
+    console.log(counter);
     // There are no pixels with colour
     if (!result.length) {
         return [];
@@ -137,13 +156,13 @@ let picture = new Image(
         1, 1, 1, 1, 1, 1, 3, 3, 3, 3], 10, 6);
 let imag;
 let picture2 = new Image(
-    [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, // prettier-ignore
-        1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
-        1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
-        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
-        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
-        1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
-        1, 1, 1, 1, 1, 1, 1, 3, 3, 3], 10, 7);
+   [1, 1, 1, 1, 1, 1, 1, 1, 2, 1, // prettier-ignore
+    1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
+    1, 1, 1, 1, 1, 1, 2, 2, 2, 2,
+    1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+    1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+    1, 1, 1, 1, 1, 1, 1, 3, 2, 2,
+    1, 1, 1, 1, 1, 1, 1, 3, 3, 3], 10, 7);
 let picture4 = new Image(// prettier-ignore
     [5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
         5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
@@ -178,8 +197,8 @@ let picture5 = new Image(// prettier-ignore
     [8, 8,
         7, 8], 2, 2);
 
-// imag = picture;
-// console.log(central_pixels(imag, 1), `-`);
+imag = picture4;
+console.log(central_pixels(imag, 5), `-`);
 
 
 // imag = picture2;
@@ -188,7 +207,7 @@ let picture5 = new Image(// prettier-ignore
 // Only one red pixel has the maximum depth of 3:
 imag = picture;
 let red_ctr = [32];
-// console.log(central_pixels(imag, 1), red_ctr);
+console.log(central_pixels(imag, 1), red_ctr);
 
 // // Multiple blue pixels have the maximum depth of 2:
 // let blue_ctr = [16, 17, 18, 26, 27, 28, 38];
@@ -207,9 +226,9 @@ let red_ctr = [32];
 // console.log(central_pixels(imag, 5), non_existent_ctr);
 
 // // Changing one pixel can make a big difference to the result:
-imag.pixels[32] = 3;
-let new_ctr = [ 11,21,41,43 ];
-console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
+// imag.pixels[32] = 3;
+// let new_ctr = [11, 21, 41, 43];
+// console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
 
 // console.log(` - * Worked test * -`);
 // зробив щоб при відсутності кольору писало повідомлення

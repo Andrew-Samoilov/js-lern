@@ -29,7 +29,6 @@ function central_pixels(img, colour) {
 
     function calculatePixelDepth(coordinte) {
         // !! need add caсhe
-
         // console.log('coordinte', coordinte);
         let pixelDepth = 1;
         const TOP_BORDER = (coordinte - img.width) < 0;
@@ -88,17 +87,17 @@ function central_pixels(img, colour) {
         if (img.pixels[index] === colour) {
             // !! need add caсhe
             const CURRENT_PIXEL_DEEP = calculatePixelDepth(index);
-
-            if (CURRENT_PIXEL_DEEP > maxAttention) {
+            
+            if (CURRENT_PIXEL_DEEP === maxAttention) {
+                result.push(index);
+            } else if (CURRENT_PIXEL_DEEP > maxAttention) {
                 // console.log(`CURRENT_PIXEL_DEEP > maxAttention) img.pixels[${index}]= ${colour} CURRENT_PIXEL_DEEP ${CURRENT_PIXEL_DEEP}, maxAttention = ${maxAttention}`);
                 result.length = 0;
                 result.push(index); //додаємо в результат індекс масива
                 // console.log('CURRENT_PIXEL_DEEP > maxAttention)', CURRENT_PIXEL_DEEP, maxAttention);
                 maxAttention = CURRENT_PIXEL_DEEP;
-            } else if (CURRENT_PIXEL_DEEP === maxAttention) {
-                // console.log('CURRENT_PIXEL_DEEP = maxAttention', CURRENT_PIXEL_DEEP, maxAttention);
-                result.push(index); //додаємо в результат індекс масива
-            }
+            } 
+            
         }
 
     }
@@ -158,8 +157,8 @@ let picture5 = new Image(// prettier-ignore
     [8, 8,
         7, 8], 2, 2);
 
-imag = picture4;
-console.log(central_pixels(imag, 5), `-`);
+// imag = picture4;
+// console.log(central_pixels(imag, 5), `-`);
 
 
 // imag = picture2;
@@ -187,9 +186,9 @@ console.log(central_pixels(imag, 1), red_ctr);
 // console.log(central_pixels(imag, 5), non_existent_ctr);
 
 // // Changing one pixel can make a big difference to the result:
-imag.pixels[32] = 3;
-let new_ctr = [11, 21, 41, 43];
-console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
+// imag.pixels[32] = 3;
+// let new_ctr = [11, 21, 41, 43];
+// console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
 
 // console.log(` - * Worked test * -`);
 // if no color, we return an empty array

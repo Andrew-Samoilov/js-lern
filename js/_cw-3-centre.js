@@ -31,16 +31,12 @@ function central_pixels(img, colour) {
 
     function calculatePixelDepth(coordinte) {
         // console.log('coordinte', coordinte);
-        const TOP_BORDER = (coordinte - img.width) < 0;
-        const RIGHT_BORDER = (coordinte + 1) % img.width === 0;
-        const LEFT_BORDER = coordinte % img.width === 0;
-        const BOTTOM_BORDER = (coordinte + img.width) >= img.pixels.length;
 
         // раннє повернення + оптимізований порядок
-        if (TOP_BORDER) return 1;
-        if (LEFT_BORDER) return 1;
-        if (BOTTOM_BORDER) return 1;
-        if (RIGHT_BORDER) return 1;
+        if ((coordinte - img.width) < 0) return 1;  // TOP_BORDER
+        if (coordinte % img.width === 0) return 1;  // LEFT_BORDER
+        if ((coordinte + img.width) >= img.pixels.length) return 1; // BOTTOM_BORDER
+        if ((coordinte + 1) % img.width === 0) return 1;    // RIGHT_BORDER
 
         let scanTop = 1;
         let scanBottom = 1;
@@ -67,11 +63,10 @@ function central_pixels(img, colour) {
                 break;
             else scanLeft = scanDistance + 1;
 
-
             //scan right
             if (img.pixels[coordinte + scanDistance] !== colour || scanDistance >= (img.width - coordinte % img.width))
                 break;
-             else scanRight = scanDistance + 1;
+            else scanRight = scanDistance + 1;
 
 
             //scan diagonals
@@ -241,8 +236,8 @@ let picture7 = new Image([
 
 // Only one red pixel has the maximum depth of 3:
 imag = picture;
-let red_ctr = [32];
-console.log(central_pixels(imag, 1), red_ctr);
+// let red_ctr = [32];
+// console.log(central_pixels(imag, 1), red_ctr);
 
 // imag = picture7;
 // console.log(central_pixels(imag, 5), [175, 181, 182, 183, 211, 212,
@@ -257,8 +252,8 @@ console.log(central_pixels(imag, 1), red_ctr);
 // console.log(central_pixels(imag, 2), blue_ctr);
 
 // // All the green pixels have depth 1, so they are all "central":
-// let green_ctr = [ 35,45,46,47,56,57,58,59 ];
-// console.log(central_pixels(imag, 3).sort(ascending), green_ctr);
+let green_ctr = [35, 45, 46, 47, 56, 57, 58, 59];
+console.log(central_pixels(imag, 3).sort(ascending), green_ctr);
 
 // // Similarly, all the purple pixels have depth 1:
 // let purple_ctr = [ 2,3,4,5 ];
@@ -269,9 +264,9 @@ console.log(central_pixels(imag, 1), red_ctr);
 // console.log(central_pixels(imag, 5), non_existent_ctr);
 
 // // Changing one pixel can make a big difference to the result:
-imag.pixels[32] = 3;
-let new_ctr = [11, 21, 41, 43];
-console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
+// imag.pixels[32] = 3;
+// let new_ctr = [11, 21, 41, 43];
+// console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
 
 // console.log(` - * Worked test * -`);
 // if no color, we return an empty array

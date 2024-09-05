@@ -1,4 +1,4 @@
-console.log('- * 22CodeWars * 3 kuy * Centre of attention * -');
+console.log('- * 77CodeWars * 3 kuy * Centre of attention * -');
 
 class Image {
     constructor(data, w, h) {
@@ -64,10 +64,51 @@ function central_pixels(img, colour) {
             // scan diagonals
             if (scanDistance > 1) {
                 counter++;
-                console.log(`scanDistance > 1`, scanDistance)
+                // console.log(`scanDistance > 1`, scanDistance);
+
+                let leftTopDeltaX = 1;
+                let leftTopDeltaY = 1;
+
+                let rightTopDeltaX = -1;
+                let rightTopDeltaY = 1;
+
+                let leftBottomDeltaX = 1;
+                let leftBottomDeltaY = -1;
+
+                let rightBottomDeltaX = -1;
+                let rightBottomDeltaY = -1;
+
                 for (let index = 0; index < scanDistance - 1; index++) {
                     counter++;
-                    console.log(`scan for`, scanDistance, `coordinate`, coordinte);
+                    // console.log(`scan`, scanDistance, `coordinate`, coordinte);
+
+                    //left top
+                    // console.log(`left top`, coordinte, `coord`, coordinte - scanDistance + 1 - imag.width * (index + 1));
+                    if (img.pixels[coordinte - scanDistance + 1 - img.width * (index + 1)] !== colour) {
+                        // console.log(`left top != colour`, coordinte, `scan coord`, coordinte - scanDistance + 1 - imag.width * (index + 1));
+                        return scanDistance;
+                    }
+
+                    //right top
+                    // console.log(`right top`, coordinte, `coord`, coordinte + scanDistance -1- imag.width * (index + 1));
+                    if (img.pixels[coordinte + scanDistance - 1 - img.width * (index + 1)] !== colour) {
+                        // console.log(`right top != colour`, coordinte, `scan coord`, coordinte + scanDistance - 1 - imag.width * (index + 1));
+                        return scanDistance;
+                    }
+
+                    //left bottom
+                    // console.log(`left bottom`, coordinte, `coord`, coordinte - scanDistance + 1 + imag.width * (index + 1));
+                    if (img.pixels[coordinte - scanDistance + 1 + img.width * (index + 1)] !== colour) {
+                        // console.log(`left bottom != colour`, coordinte, `scan coord`, coordinte - scanDistance + 1 + imag.width * (index + 1));
+                        return scanDistance;
+                    }
+
+                    //right bottom
+                    // console.log(`right bottom`, coordinte, `coord`, coordinte + scanDistance - 1 + imag.width * (index + 1));
+                    if (img.pixels[coordinte + scanDistance - 1 + img.width * (index + 1)] !== colour) {
+                        // console.log(`right bottom != colour`, coordinte, `scan coord`, coordinte + scanDistance - 1 + imag.width * (index + 1));
+                        return scanDistance;
+                    }
                 }
             }
 
@@ -89,7 +130,6 @@ function central_pixels(img, colour) {
                 result.push(index);
                 maxAttention = CURRENT_PIXEL_DEEP;
             }
-
         }
 
     }
@@ -111,13 +151,13 @@ let picture = new Image(
         1, 1, 1, 1, 1, 1, 3, 3, 3, 3], 10, 6);
 
 let picture2 = new Image(
-    [0, 0, 0, 1, 1, 2, 2, 2, 2, 1, // prettier-ignore
-     0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
-     0, 0, 0, 1, 1, 1, 2, 2, 2, 2,
-     1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-     0, 0, 0, 1, 1, 1, 2, 2, 2, 2,
-     0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
-     0, 0, 0, 1, 1, 2, 2, 2, 2, 3], 10, 7);
+    [0, 0, 1, 1, 1, 2, 2, 2, 2, 1, // prettier-ignore
+        0, 0, 1, 1, 1, 1, 2, 2, 2, 2,
+        0, 0, 1, 1, 1, 1, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
+        0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
+        0, 0, 0, 1, 1, 2, 2, 2, 2, 3], 10, 7);
 
 let picture4 = new Image(// prettier-ignore
     [5, 5, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 5, 7, 7, 6, 6, 5, 5, 7, 7, 7, 7, 7, 7,
@@ -220,13 +260,13 @@ let picture7 = new Image([
 // imag = picture4;
 // console.log(central_pixels(imag, 5), `-`);
 
-// imag = picture2;
-// console.log(central_pixels(imag, 1), `!&?`);
+imag = picture2;
+console.log(central_pixels(imag, 1), `!&?`);
 
 // Only one red pixel has the maximum depth of 3:
-imag = picture;
-let red_ctr = [32];
-console.log(central_pixels(imag, 1), red_ctr);
+// imag = picture;
+// let red_ctr = [32];
+// console.log(central_pixels(imag, 1), red_ctr);
 
 // imag = picture7;
 // console.log(central_pixels(imag, 5), [175, 181, 182, 183, 211, 212,
@@ -254,10 +294,10 @@ console.log(central_pixels(imag, 1), red_ctr);
 // console.log(central_pixels(imag, 5), non_existent_ctr);
 
 // // Changing one pixel can make a big difference to the result:
-imag = picture;
-imag.pixels[32] = 3;
-let new_ctr = [11, 21, 41, 43];
-console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
+// imag = picture;
+// imag.pixels[32] = 3;
+// let new_ctr = [11, 21, 41, 43];
+// console.log(central_pixels(imag, 1).sort(ascending), new_ctr);
 
 // console.log(` - * Worked test * -`);
 // if no color, we return an empty array

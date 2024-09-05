@@ -1,11 +1,5 @@
-console.log(" - * Code wars * - ");
+console.log(" - * Code wars * 6 * Decode the Morse code * - ");
 // https://www.codewars.com/kata/54b724efac3d5402db00065e/train/javascript
-console.log();
-console.log();
-
-/* на момент розробки про "map" взагалі нічого не знаю. 
-після вирішення подивився шо він часто використовується.
-подивився що ми його ще будемо вчити, заспокоївся ) */
 
 function morseSwitch(morseCodeToSwich = '') {
     // Цю діч знайшов в рішеннях, привяжу, щоб було зручніше. треба вчити словники.
@@ -102,46 +96,13 @@ function morseSwitch(morseCodeToSwich = '') {
 
 
 let decodeMorse = function (morseCode) {
-    //your code here
     console.log('Input Morce code', morseCode);
 
-    let result = '';
-    morseCode = morseCode.trim();
-    // console.log('*- trim ', morseCode);
-
-    // пишу функцію replace-All
-    do {
-        morseCode = morseCode.replace('   ', ' * ');
-    } while (morseCode.includes('   '));
-
-    // console.log('**- replace ', morseCode);
-
-    let templateArray = morseCode.split(' ');
-    // templateArray[2] = undefined;
-    // console.log('*- split ', morseCode);
-
-    for (let i = 0; i < templateArray.length; i++) {
-
-        switch (templateArray[i]) {
-            case undefined:
-            case null:
-                result += '';
-                // console.log('-- undefined', result);
-                break;
-            case '*':
-                result += ' ';
-                break;
-            default:
-                result += morseSwitch(templateArray[i] + ' ');
-                // console.log('result --', result);
-                break;
-        }
-    }
-
-    // console.log(' - i', templateArray[i], 'result -', result);
-
-    console.log('Finish result -', result);
-    return result;
+    return morseCode.trim()
+        .replaceAll('   ', ' * ')
+        .split(' ')
+        .map(item => item === '*' ? ' ' : morseSwitch(item + ' '))
+        .join('').replace(/\s+/g, ' ');
 }
 
 console.log(decodeMorse('           .... . -.--   .--- ..- -.. .      '));

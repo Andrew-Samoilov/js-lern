@@ -1,6 +1,4 @@
-console.log(" - * CodeWars. Decode the Morse code, advanced * - ");
-console.log();
-console.log();
+console.log(" - * CodeWars 4 kuy. Decode the Morse code, advanced * - ");
 
 function transmitionsRate(bits = '') {
     let maxZeroRepeat = 0;
